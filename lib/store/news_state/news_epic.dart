@@ -21,11 +21,11 @@ class NewsEpic {
   static Stream<dynamic> _getNews(Stream<dynamic> actions, EpicStore<AppState> store) {
     return actions.whereType<GetNewsAction>().switchMap(
       (action) async* {
-        NewsListDto result = await getIt<IChatRepository>().getNews();
+        NewsListDto? result = await getIt<IChatRepository>().getNews();
 
-        if (result != null) {
+
           yield* Stream.value(SaveNewsAction(news: result));
-        }
+
       },
     );
   }
@@ -37,9 +37,9 @@ class NewsEpic {
 
         NewsListDto result = await getIt<IChatRepository>().getNewsWithPagination(pageSize: action.pageSize, page: 1);
 
-        if (result != null) {
+
           yield* Stream.value(AddNewsAction(news: result.articles!));
-        }
+
         yield* Stream.value(ChangePaginationLoader(paginationLoader: false));
       },
     );
@@ -52,9 +52,9 @@ class NewsEpic {
 
         NewsListDto result = await getIt<IChatRepository>().getNewsWithPagination(pageSize: 20, page: action.page);
 
-        if (result != null) {
+
           yield* Stream.value(SaveNewsAction(news: result));
-        }
+
         yield* Stream.value(ChangePaginationLoader(paginationLoader: false));
       },
     );

@@ -2,10 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:news_paper/dictionary/data/en.dart';
+import 'package:news_paper/dictionary/dictionary_classes/home_page_language.dart';
+import 'package:news_paper/dictionary/flutter_dictionary.dart';
 import 'package:news_paper/presentation/layouts/main_layouts.dart';
 import 'package:news_paper/presentation/pages/home_page/home_page_vm.dart';
 import 'package:news_paper/presentation/widgets/news_card.dart';
 import 'package:news_paper/presentation/widgets/silver_grid_delegate.dart';
+import 'package:news_paper/res/app_colors.dart';
+import 'package:news_paper/res/app_fonts.dart';
 import 'package:news_paper/res/app_routes.dart';
 import 'package:news_paper/route_helper/models/news_page_data.dart';
 import 'package:news_paper/store/application/app_state.dart';
@@ -18,6 +23,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  HomePageLanguage language = FlutterDictionary.instance.language?.homePageLanguage ?? en.homePageLanguage;
+
   final ScrollController _singleChildScroll = ScrollController();
   final ScrollController _scrollController = ScrollController();
   double offset = 0.0;
@@ -29,7 +36,6 @@ class _HomePageState extends State<HomePage> {
     _singleChildScroll.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, HomePageVM>(
@@ -42,15 +48,15 @@ class _HomePageState extends State<HomePage> {
       builder: (context, vm) {
         return MainLayout(
           body: vm.newsList.articles!.isEmpty
-              ? const Center(
-                  child: Text(
-                    'loading...',
-                    //  style: AppFonts.requestPageCardWidgetRequestsText,
-                  ),
-                )
+              ?  Center(
+            child: Text(
+              language.load,
+              style: AppFonts.loadingText,
+            ),
+          )
               : loadingBooks(vm),
           selectedIndex: 0,
-          title: 'News',
+          title:   language.news,
         );
       },
     );
@@ -85,23 +91,24 @@ class _HomePageState extends State<HomePage> {
                 slivers: [
                   SliverGrid(
                     delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, index) {
+                          (BuildContext context, index) {
                         return SizedBox(
-                            width: 106.0,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                  AppRoutes.newsPage,
-                                  arguments: NewsPageData(
-                                    news: vm.newsList.articles![index],
-                                  ),
-                                );
-                              },
-                              child: NewsCard(
-                                link: vm.newsList.articles![index].urlToImage!,
-                                titleNews: vm.newsList.articles![index].title!,
-                              ),
-                            ));
+                          width: 106.0,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                AppRoutes.newsPage,
+                                arguments: NewsPageData(
+                                  news: vm.newsList.articles![index],
+                                ),
+                              );
+                            },
+                            child: NewsCard(
+                              link: vm.newsList.articles![index].urlToImage!,
+                              titleNews: vm.newsList.articles![index].title!,
+                            ),
+                          ),
+                        );
                       },
                       childCount: vm.newsList.articles!.length,
                     ),
@@ -117,9 +124,7 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.transparent,
                       child: const Center(
                         child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.green,
-                          ),
+                          valueColor: AlwaysStoppedAnimation<Color>(AppColors.blue),
                         ),
                       ),
                     ),
@@ -137,13 +142,19 @@ class _HomePageState extends State<HomePage> {
                       vm.changePage(vm.page - 1);
                     }
                   },
-                  child: const Text('Last page'),
+                  child:  Text(
+                    language.lPage,
+                    style: AppFonts.bottomBarTextStyle,
+                  ),
                 ),
                 InkWell(
                   onTap: () {
                     vm.changePage(vm.page + 1);
                   },
-                  child: const Text('Next page'),
+                  child:  Text(
+                    language.nPage,
+                    style: AppFonts.bottomBarTextStyle,
+                  ),
                 ),
               ],
             ),

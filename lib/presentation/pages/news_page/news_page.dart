@@ -2,8 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
+import 'package:news_paper/dictionary/data/en.dart';
+import 'package:news_paper/dictionary/dictionary_classes/news_page_language.dart';
+import 'package:news_paper/dictionary/flutter_dictionary.dart';
+
 import 'package:news_paper/domain/entity/articles/articles_dto.dart';
 import 'package:news_paper/presentation/pages/news_page/news_page_vm.dart';
+import 'package:news_paper/res/app_colors.dart';
+import 'package:news_paper/res/app_consts.dart';
+import 'package:news_paper/res/app_fonts.dart';
 import 'package:news_paper/store/application/app_state.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,6 +24,8 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
+  NewsPageLanguage language = FlutterDictionary.instance.language?.newsPageLanguage ?? en.newsPageLanguage;
+  //final NewsPageDictionary _dictionary = MainDictionary.instance.language.newsPageDictionary;
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, NewsPageVM>(
@@ -24,7 +33,7 @@ class _NewsPageState extends State<NewsPage> {
       builder: (context, vm) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Bitcoin'),
+            title:  Text(  language.title.toString()),
           ),
           body: ListView(
             children: [
@@ -39,21 +48,25 @@ class _NewsPageState extends State<NewsPage> {
                 Align(
                   alignment: Alignment.topRight,
                   child: Container(
-                    color: const Color.fromARGB(255, 102, 102, 153),
-                    child: Text(DateFormat("Md").format(DateTime.parse(widget.news.publishedAt!)),
-                        style: const TextStyle(fontWeight: FontWeight.bold, height: 20.0)),
+                    color:  AppColors.mainColorDarkTwo,
+                    child: Text(
+                      DateFormat(dataTimeFormat).format(
+                        DateTime.parse(widget.news.publishedAt!),
+                      ),
+                      style: AppFonts.dataTime,
+                    ),
                   ),
                 ),
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: Container(
-                    color: const Color.fromARGB(255, 102, 102, 153),
-                    child: Text(widget.news.author ?? ''),
+                    color: AppColors.mainColorDarkTwo,
+                    child: Text(widget.news.author ?? emptyString),
                   ),
                 ),
               ]),
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Column(
                   children: [
                     Row(
@@ -75,16 +88,16 @@ class _NewsPageState extends State<NewsPage> {
                           onTap: () {
                             _launchURL(widget.news.url);
                           },
-                          child: const Text(
-                            'Read more...',
-                            style: TextStyle(color: Colors.blue, fontSize: 15.0),
+                          child:   Text(
+                            language.read,
+                            style: AppFonts.readMore,
                           ),
                         ),
                       ],
                     ),
                     Text(
                       widget.news.title!,
-                      style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                      style:  AppFonts.cardText,
                       maxLines: 3,
                     ),
                     const SizedBox(

@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:news_paper/dictionary/data/en.dart';
+import 'package:news_paper/dictionary/dictionary_classes/home_page_language.dart';
+import 'package:news_paper/dictionary/flutter_dictionary.dart';
 import 'package:news_paper/presentation/layouts/main_layouts.dart';
 import 'package:news_paper/presentation/pages/fav_page/fav_page_vm.dart';
 import 'package:news_paper/presentation/widgets/news_card.dart';
@@ -22,7 +25,9 @@ class _FavPageState extends State<FavPage> {
   final ScrollController _scrollController = ScrollController();
   double offset = 0.0;
 
-  @override
+
+  HomePageLanguage language = FlutterDictionary.instance.language?.homePageLanguage ?? en.homePageLanguage;
+
   @override
   void dispose() {
     _singleChildScroll.dispose();
@@ -37,7 +42,7 @@ class _FavPageState extends State<FavPage> {
         return MainLayout(
           body: loadingBooks(vm),
           selectedIndex: 1,
-          title: 'Favorite',
+          title: language.fTitle,
         );
       },
     );
@@ -74,7 +79,7 @@ class _FavPageState extends State<FavPage> {
                                 );
                               },
                               child: NewsCard(
-                                link: vm.articlesDto[index].urlToImage!, //vm.newsList.articles![index].urlToImage!,
+                                link: vm.articlesDto[index].urlToImage!,
                                 titleNews: vm.articlesDto[index].title!,
                               ),
                             ));
