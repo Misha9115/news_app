@@ -25,7 +25,6 @@ class _FavPageState extends State<FavPage> {
   final ScrollController _scrollController = ScrollController();
   double offset = 0.0;
 
-
   HomePageLanguage language = FlutterDictionary.instance.language?.homePageLanguage ?? en.homePageLanguage;
 
   @override

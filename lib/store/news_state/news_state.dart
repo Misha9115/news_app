@@ -18,7 +18,7 @@ class NewsState {
           status: '',
           articles: [],
         ),
-        pageNumber: 0);
+        pageNumber: 1);
   }
 
   const NewsState({

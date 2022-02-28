@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
     _singleChildScroll.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, HomePageVM>(
@@ -48,15 +49,15 @@ class _HomePageState extends State<HomePage> {
       builder: (context, vm) {
         return MainLayout(
           body: vm.newsList.articles!.isEmpty
-              ?  Center(
-            child: Text(
-              language.load,
-              style: AppFonts.loadingText,
-            ),
-          )
+              ? Center(
+                  child: Text(
+                    language.load,
+                    style: AppFonts.loadingText,
+                  ),
+                )
               : loadingBooks(vm),
           selectedIndex: 0,
-          title:   language.news,
+          title: language.news,
         );
       },
     );
@@ -91,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                 slivers: [
                   SliverGrid(
                     delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, index) {
+                      (BuildContext context, index) {
                         return SizedBox(
                           width: 106.0,
                           child: InkWell(
@@ -142,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                       vm.changePage(vm.page - 1);
                     }
                   },
-                  child:  Text(
+                  child: Text(
                     language.lPage,
                     style: AppFonts.bottomBarTextStyle,
                   ),
@@ -151,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     vm.changePage(vm.page + 1);
                   },
-                  child:  Text(
+                  child: Text(
                     language.nPage,
                     style: AppFonts.bottomBarTextStyle,
                   ),

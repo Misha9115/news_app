@@ -17,5 +17,10 @@ class ChatRepositoryImpl implements IChatRepository {
 
     return response;
   }
+  @override
+  Future<NewsListDto> getNewsWithParams({ int? pageSize, int? page,String? q}) async {
+    NewsListDto response = await getIt<RestApiNews>().getNewsWithParams(q!,'af4f1bb0e02b4dde8a0c72432081c7e8', pageSize!,page!);
 
+    return response;
+  }
 }

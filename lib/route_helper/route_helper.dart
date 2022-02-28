@@ -3,6 +3,7 @@ import 'package:news_paper/presentation/pages/fav_page/fav_page.dart';
 
 import 'package:news_paper/presentation/pages/home_page/home_page.dart';
 import 'package:news_paper/presentation/pages/news_page/news_page.dart';
+import 'package:news_paper/presentation/pages/search_page/search_page.dart';
 import 'package:news_paper/res/app_routes.dart';
 import 'package:news_paper/route_helper/models/news_page_data.dart';
 
@@ -33,6 +34,11 @@ class RouteHelper {
         return _defaultRoute(
           settings: settings,
           page: const FavPage(),
+        );
+      case AppRoutes.searchPage:
+        return _defaultRoute(
+          settings: settings,
+          page: const SearchPage(),
         );
       default:
         return _defaultRoute(

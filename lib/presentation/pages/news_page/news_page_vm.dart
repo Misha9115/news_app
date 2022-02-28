@@ -16,7 +16,6 @@ class NewsPageVM {
 
   static NewsPageVM init(Store<AppState> store) {
     return NewsPageVM(
-
       addFav: FavSelectors.addF(store),
       deleteFav: FavSelectors.deleteF(store),
       articlesDto: FavSelectors.getFav(store),

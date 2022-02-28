@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:news_paper/res/app_routes.dart';
 
@@ -14,7 +13,6 @@ class MainLayout extends StatefulWidget {
 }
 
 class _MainLayoutState extends State<MainLayout> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +29,10 @@ class _MainLayoutState extends State<MainLayout> {
             BottomNavigationBarItem(
               icon: Icon(Icons.favorite),
               label: 'Favorite',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'Search',
             ),
           ],
           currentIndex: widget.selectedIndex,
@@ -49,6 +51,11 @@ class _MainLayoutState extends State<MainLayout> {
       if (index == 1) {
         Navigator.of(context).pushNamed(
           AppRoutes.favPage,
+        );
+      }
+      if (index == 2) {
+        Navigator.of(context).pushNamed(
+          AppRoutes.searchPage,
         );
       }
     }

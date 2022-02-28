@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:news_paper/dictionary/data/en.dart';
 import 'package:news_paper/dictionary/dictionary_classes/news_page_language.dart';
 import 'package:news_paper/dictionary/flutter_dictionary.dart';
-
 import 'package:news_paper/domain/entity/articles/articles_dto.dart';
 import 'package:news_paper/presentation/pages/news_page/news_page_vm.dart';
 import 'package:news_paper/res/app_colors.dart';
@@ -25,7 +24,7 @@ class NewsPage extends StatefulWidget {
 
 class _NewsPageState extends State<NewsPage> {
   NewsPageLanguage language = FlutterDictionary.instance.language?.newsPageLanguage ?? en.newsPageLanguage;
-  //final NewsPageDictionary _dictionary = MainDictionary.instance.language.newsPageDictionary;
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, NewsPageVM>(
@@ -33,22 +32,23 @@ class _NewsPageState extends State<NewsPage> {
       builder: (context, vm) {
         return Scaffold(
           appBar: AppBar(
-            title:  Text(  language.title.toString()),
+            title: Text(language.title.toString()),
           ),
           body: ListView(
             children: [
               Stack(children: [
                 SizedBox(
                   height: 250,
-                  child: Image.network(
-                    widget.news.urlToImage!,
+                  child: FadeInImage.assetNetwork(
+                    placeholder: logo,
+                    image: widget.news.urlToImage ?? imageURL,
                     fit: BoxFit.cover,
                   ),
                 ),
                 Align(
                   alignment: Alignment.topRight,
                   child: Container(
-                    color:  AppColors.mainColorDarkTwo,
+                    color: AppColors.mainColorDarkTwo,
                     child: Text(
                       DateFormat(dataTimeFormat).format(
                         DateTime.parse(widget.news.publishedAt!),
@@ -88,7 +88,7 @@ class _NewsPageState extends State<NewsPage> {
                           onTap: () {
                             _launchURL(widget.news.url);
                           },
-                          child:   Text(
+                          child: Text(
                             language.read,
                             style: AppFonts.readMore,
                           ),
@@ -97,7 +97,7 @@ class _NewsPageState extends State<NewsPage> {
                     ),
                     Text(
                       widget.news.title!,
-                      style:  AppFonts.cardText,
+                      style: AppFonts.cardText,
                       maxLines: 3,
                     ),
                     const SizedBox(

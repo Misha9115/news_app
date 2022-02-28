@@ -23,9 +23,7 @@ class NewsEpic {
       (action) async* {
         NewsListDto? result = await getIt<IChatRepository>().getNews();
 
-
-          yield* Stream.value(SaveNewsAction(news: result));
-
+        yield* Stream.value(SaveNewsAction(news: result));
       },
     );
   }
@@ -34,11 +32,11 @@ class NewsEpic {
     return actions.whereType<GetPaginationAction>().switchMap(
       (action) async* {
         yield* Stream.value(ChangePaginationLoader(paginationLoader: true));
+        int page = store.state.newsState.pageNumber;
 
-        NewsListDto result = await getIt<IChatRepository>().getNewsWithPagination(pageSize: action.pageSize, page: 1);
+        NewsListDto result = await getIt<IChatRepository>().getNewsWithPagination(pageSize: action.pageSize, page: page);
 
-
-          yield* Stream.value(AddNewsAction(news: result.articles!));
+        yield* Stream.value(AddNewsAction(news: result.articles!));
 
         yield* Stream.value(ChangePaginationLoader(paginationLoader: false));
       },
@@ -52,8 +50,7 @@ class NewsEpic {
 
         NewsListDto result = await getIt<IChatRepository>().getNewsWithPagination(pageSize: 20, page: action.page);
 
-
-          yield* Stream.value(SaveNewsAction(news: result));
+        yield* Stream.value(SaveNewsAction(news: result));
 
         yield* Stream.value(ChangePaginationLoader(paginationLoader: false));
       },

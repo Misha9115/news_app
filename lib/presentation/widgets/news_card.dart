@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_paper/res/app_consts.dart';
 
 class NewsCard extends StatelessWidget {
   final String titleNews;
@@ -17,8 +18,8 @@ class NewsCard extends StatelessWidget {
           SizedBox(
             height: 100.0,
             child: FadeInImage.assetNetwork(
-              placeholder: 'assets/Log1.jpg',
-              image: link!,
+              placeholder: logo,
+              image: link??imageURL,
               fit: BoxFit.cover,
             ),
           ),
