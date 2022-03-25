@@ -29,8 +29,7 @@ class _$ArticlesDtoTearOff {
       @JsonKey(name: 'url') required String? url,
       @JsonKey(name: 'urlToImage') required String? urlToImage,
       @JsonKey(name: 'publishedAt') required String? publishedAt,
-      @JsonKey(name: 'content') required String? content,
-      @JsonKey(name: 'source') required SourceDto? source}) {
+      @JsonKey(name: 'content') required String? content}) {
     return _ArticlesDto(
       author: author,
       title: title,
@@ -39,7 +38,6 @@ class _$ArticlesDtoTearOff {
       urlToImage: urlToImage,
       publishedAt: publishedAt,
       content: content,
-      source: source,
     );
   }
 
@@ -67,8 +65,6 @@ mixin _$ArticlesDto {
   String? get publishedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'content')
   String? get content => throw _privateConstructorUsedError;
-  @JsonKey(name: 'source')
-  SourceDto? get source => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -88,10 +84,7 @@ abstract class $ArticlesDtoCopyWith<$Res> {
       @JsonKey(name: 'url') String? url,
       @JsonKey(name: 'urlToImage') String? urlToImage,
       @JsonKey(name: 'publishedAt') String? publishedAt,
-      @JsonKey(name: 'content') String? content,
-      @JsonKey(name: 'source') SourceDto? source});
-
-  $SourceDtoCopyWith<$Res>? get source;
+      @JsonKey(name: 'content') String? content});
 }
 
 /// @nodoc
@@ -111,7 +104,6 @@ class _$ArticlesDtoCopyWithImpl<$Res> implements $ArticlesDtoCopyWith<$Res> {
     Object? urlToImage = freezed,
     Object? publishedAt = freezed,
     Object? content = freezed,
-    Object? source = freezed,
   }) {
     return _then(_value.copyWith(
       author: author == freezed
@@ -142,22 +134,7 @@ class _$ArticlesDtoCopyWithImpl<$Res> implements $ArticlesDtoCopyWith<$Res> {
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String?,
-      source: source == freezed
-          ? _value.source
-          : source // ignore: cast_nullable_to_non_nullable
-              as SourceDto?,
     ));
-  }
-
-  @override
-  $SourceDtoCopyWith<$Res>? get source {
-    if (_value.source == null) {
-      return null;
-    }
-
-    return $SourceDtoCopyWith<$Res>(_value.source!, (value) {
-      return _then(_value.copyWith(source: value));
-    });
   }
 }
 
@@ -175,11 +152,7 @@ abstract class _$ArticlesDtoCopyWith<$Res>
       @JsonKey(name: 'url') String? url,
       @JsonKey(name: 'urlToImage') String? urlToImage,
       @JsonKey(name: 'publishedAt') String? publishedAt,
-      @JsonKey(name: 'content') String? content,
-      @JsonKey(name: 'source') SourceDto? source});
-
-  @override
-  $SourceDtoCopyWith<$Res>? get source;
+      @JsonKey(name: 'content') String? content});
 }
 
 /// @nodoc
@@ -201,7 +174,6 @@ class __$ArticlesDtoCopyWithImpl<$Res> extends _$ArticlesDtoCopyWithImpl<$Res>
     Object? urlToImage = freezed,
     Object? publishedAt = freezed,
     Object? content = freezed,
-    Object? source = freezed,
   }) {
     return _then(_ArticlesDto(
       author: author == freezed
@@ -232,10 +204,6 @@ class __$ArticlesDtoCopyWithImpl<$Res> extends _$ArticlesDtoCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String?,
-      source: source == freezed
-          ? _value.source
-          : source // ignore: cast_nullable_to_non_nullable
-              as SourceDto?,
     ));
   }
 }
@@ -250,8 +218,7 @@ class _$_ArticlesDto implements _ArticlesDto {
       @JsonKey(name: 'url') required this.url,
       @JsonKey(name: 'urlToImage') required this.urlToImage,
       @JsonKey(name: 'publishedAt') required this.publishedAt,
-      @JsonKey(name: 'content') required this.content,
-      @JsonKey(name: 'source') required this.source});
+      @JsonKey(name: 'content') required this.content});
 
   factory _$_ArticlesDto.fromJson(Map<String, dynamic> json) =>
       _$$_ArticlesDtoFromJson(json);
@@ -277,13 +244,10 @@ class _$_ArticlesDto implements _ArticlesDto {
   @override
   @JsonKey(name: 'content')
   final String? content;
-  @override
-  @JsonKey(name: 'source')
-  final SourceDto? source;
 
   @override
   String toString() {
-    return 'ArticlesDto(author: $author, title: $title, description: $description, url: $url, urlToImage: $urlToImage, publishedAt: $publishedAt, content: $content, source: $source)';
+    return 'ArticlesDto(author: $author, title: $title, description: $description, url: $url, urlToImage: $urlToImage, publishedAt: $publishedAt, content: $content)';
   }
 
   @override
@@ -300,8 +264,7 @@ class _$_ArticlesDto implements _ArticlesDto {
                 .equals(other.urlToImage, urlToImage) &&
             const DeepCollectionEquality()
                 .equals(other.publishedAt, publishedAt) &&
-            const DeepCollectionEquality().equals(other.content, content) &&
-            const DeepCollectionEquality().equals(other.source, source));
+            const DeepCollectionEquality().equals(other.content, content));
   }
 
   @override
@@ -313,8 +276,7 @@ class _$_ArticlesDto implements _ArticlesDto {
       const DeepCollectionEquality().hash(url),
       const DeepCollectionEquality().hash(urlToImage),
       const DeepCollectionEquality().hash(publishedAt),
-      const DeepCollectionEquality().hash(content),
-      const DeepCollectionEquality().hash(source));
+      const DeepCollectionEquality().hash(content));
 
   @JsonKey(ignore: true)
   @override
@@ -335,8 +297,7 @@ abstract class _ArticlesDto implements ArticlesDto {
       @JsonKey(name: 'url') required String? url,
       @JsonKey(name: 'urlToImage') required String? urlToImage,
       @JsonKey(name: 'publishedAt') required String? publishedAt,
-      @JsonKey(name: 'content') required String? content,
-      @JsonKey(name: 'source') required SourceDto? source}) = _$_ArticlesDto;
+      @JsonKey(name: 'content') required String? content}) = _$_ArticlesDto;
 
   factory _ArticlesDto.fromJson(Map<String, dynamic> json) =
       _$_ArticlesDto.fromJson;
@@ -362,9 +323,6 @@ abstract class _ArticlesDto implements ArticlesDto {
   @override
   @JsonKey(name: 'content')
   String? get content;
-  @override
-  @JsonKey(name: 'source')
-  SourceDto? get source;
   @override
   @JsonKey(ignore: true)
   _$ArticlesDtoCopyWith<_ArticlesDto> get copyWith =>

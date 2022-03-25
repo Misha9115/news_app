@@ -10,12 +10,14 @@ class FavPageVM {
   final List<ArticlesDto> articlesDto;
   final void Function(ArticlesDto news) addFav;
   final void Function(ArticlesDto news) deleteFav;
+  final void Function() getDataFromDataBase;
 
   const FavPageVM({
     required this.newsList,
     required this.articlesDto,
     required this.addFav,
     required this.deleteFav,
+    required this.getDataFromDataBase,
   });
 
   static FavPageVM init(Store<AppState> store) {
@@ -24,6 +26,7 @@ class FavPageVM {
       addFav: FavSelectors.addF(store),
       deleteFav: FavSelectors.deleteF(store),
       articlesDto: FavSelectors.getFav(store),
+      getDataFromDataBase: FavSelectors.getData(store),
     );
   }
 }

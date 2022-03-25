@@ -4,6 +4,7 @@ import 'package:news_paper/utils/init.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await InitApp.init();
 
   runApp(

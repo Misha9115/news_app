@@ -19,7 +19,7 @@ class NewsCard extends StatelessWidget {
             height: 100.0,
             child: FadeInImage.assetNetwork(
               placeholder: logo,
-              image: link??imageURL,
+              image: link ?? imageURL,
               fit: BoxFit.cover,
             ),
           ),

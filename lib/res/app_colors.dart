@@ -9,4 +9,10 @@ class AppColors {
   static const Color backGround = Color(0xFFC7C7CC);
   static const Color border = Color(0xFF828282);
   static const Color red = Color(0xFFFF0000);
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color pinkishGrey = Color(0xFFbdbdbd);
+  static const Color marigold = Color(0xFFffbd00);
+  static const Color grey = Color(0xFF494949);
+  static const Color core = Color(0xFFc79300);
+  static const Color wheat = Color(0xFFffde81);
 }

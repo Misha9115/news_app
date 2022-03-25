@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_paper/presentation/pages/fav_page/fav_page.dart';
-
 import 'package:news_paper/presentation/pages/home_page/home_page.dart';
+import 'package:news_paper/presentation/pages/login_page/login_page.dart';
 import 'package:news_paper/presentation/pages/news_page/news_page.dart';
 import 'package:news_paper/presentation/pages/search_page/search_page.dart';
 import 'package:news_paper/res/app_routes.dart';
@@ -39,6 +39,11 @@ class RouteHelper {
         return _defaultRoute(
           settings: settings,
           page: const SearchPage(),
+        );
+      case AppRoutes.loginPage:
+        return _defaultRoute(
+          settings: settings,
+          page: const LoginPage(),
         );
       default:
         return _defaultRoute(

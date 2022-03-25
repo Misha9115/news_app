@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-
 class SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight extends SliverGridDelegate {
   final int crossAxisCount;
   final double mainAxisSpacing;

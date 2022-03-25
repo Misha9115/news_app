@@ -6,7 +6,6 @@ import 'package:news_paper/dictionary/data/en.dart';
 import 'package:news_paper/dictionary/dictionary_classes/home_page_language.dart';
 import 'package:news_paper/dictionary/flutter_dictionary.dart';
 import 'package:news_paper/presentation/layouts/main_layouts.dart';
-import 'package:news_paper/presentation/pages/home_page/home_page_vm.dart';
 import 'package:news_paper/presentation/pages/search_page/search_page_vm.dart';
 import 'package:news_paper/presentation/widgets/custom_text_field.dart';
 import 'package:news_paper/presentation/widgets/news_card.dart';
@@ -44,13 +43,10 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, SearchPageVM>(
       converter: SearchPageVM.init,
-      onInitialBuild: (vm) {
-        // if (vm.newsList.articles!.isEmpty) {
-        //   vm.getBooks();
-        // }
-      },
       builder: (context, vm) {
         return MainLayout(
+          bottomNavigationBar: true,
+          appBar: true,
           body: loadingBooks(vm),
           selectedIndex: 2,
           title: language.news,
@@ -60,15 +56,11 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget loadingBooks(SearchPageVM vm) {
-    // if (!vm.paginationLoader) {
-    //   _paginationLoader = false;
-    // }
     return NotificationListener<ScrollUpdateNotification>(
       onNotification: (scroll) {
         if (_singleChildScroll.position.pixels >= (_singleChildScroll.position.maxScrollExtent - 900)) {
           if (vm.newsList.length < 81) {
             if (!_paginationLoader) {
-              // vm.getPagination(vm.newsList.articles!.length + 20);
               vm.pagination(vm.newsList.length + 20, _myTextController.text);
               _paginationLoader = true;
             }
@@ -170,8 +162,6 @@ class _SearchPageState extends State<SearchPage> {
                 ),
                 InkWell(
                   onTap: () {
-                    print('ssdsds');
-
                     vm.changePage(vm.page + 1, _myTextController.text);
                     vm.changeNewsPage(vm.page + 1);
                   },

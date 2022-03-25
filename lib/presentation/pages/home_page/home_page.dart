@@ -48,6 +48,8 @@ class _HomePageState extends State<HomePage> {
       },
       builder: (context, vm) {
         return MainLayout(
+          bottomNavigationBar: true,
+          appBar: true,
           body: vm.newsList.articles!.isEmpty
               ? Center(
                   child: Text(

@@ -36,7 +36,6 @@ class AppTextField extends StatelessWidget {
           const SizedBox(
             height: 50.0,
             width: double.infinity,
-
           ),
           Container(
             alignment: Alignment.center,
@@ -54,7 +53,8 @@ class AppTextField extends StatelessWidget {
               focusNode: focusNode,
               controller: controller,
               // keyboardType: inputType,
-              cursorColor: AppColors.red.withOpacity(0.1),//CustomTheme.colors.primaryColor,
+              cursorColor: AppColors.red.withOpacity(0.1),
+              //CustomTheme.colors.primaryColor,
               style: textStyle,
               onChanged: validator,
               onFieldSubmitted: onSubmitted,

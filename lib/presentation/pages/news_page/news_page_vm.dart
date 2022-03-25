@@ -7,11 +7,13 @@ class NewsPageVM {
   final List<ArticlesDto> articlesDto;
   final void Function(ArticlesDto news) addFav;
   final void Function(ArticlesDto news) deleteFav;
+  final void Function(ArticlesDto news) saveToDataBase;
 
   const NewsPageVM({
     required this.articlesDto,
     required this.addFav,
     required this.deleteFav,
+    required this.saveToDataBase,
   });
 
   static NewsPageVM init(Store<AppState> store) {
@@ -19,6 +21,7 @@ class NewsPageVM {
       addFav: FavSelectors.addF(store),
       deleteFav: FavSelectors.deleteF(store),
       articlesDto: FavSelectors.getFav(store),
+      saveToDataBase: FavSelectors.saveToDataBase(store),
     );
   }
 }

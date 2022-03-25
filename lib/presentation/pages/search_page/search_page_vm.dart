@@ -13,7 +13,6 @@ class SearchPageVM {
   final void Function(int pageSize, String searchReqest) pagination;
   final bool paginationLoader;
 
-
   const SearchPageVM({
     required this.changePage,
     required this.page,
@@ -33,7 +32,6 @@ class SearchPageVM {
       changeNewsPage: SearchNewsSelectors.changeSearchPageAction(store),
       pagination: SearchNewsSelectors.paginationSearchNews(store),
       paginationLoader: LoaderSelectors.getPaginationLoader(store),
-
     );
   }
 }

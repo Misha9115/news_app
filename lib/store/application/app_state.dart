@@ -1,5 +1,8 @@
+import 'package:news_paper/store/fav_state/fav_epic.dart';
 import 'package:news_paper/store/fav_state/fav_state.dart';
 import 'package:news_paper/store/loader_state/loader_state.dart';
+import 'package:news_paper/store/login_state/login_epic.dart';
+import 'package:news_paper/store/login_state/login_state.dart';
 import 'package:news_paper/store/news_state/news_epic.dart';
 import 'package:news_paper/store/news_state/news_state.dart';
 import 'package:news_paper/store/search_news_state/search_news_epic.dart';
@@ -11,12 +14,14 @@ class AppState {
   final LoaderState loaderState;
   final FavState favState;
   final SearchNewsState searchNewsState;
+  final LoginState loginState;
 
   AppState({
     required this.newsState,
     required this.loaderState,
     required this.favState,
     required this.searchNewsState,
+    required this.loginState,
   });
 
   ///All states are initialized in the [initial] function.
@@ -26,6 +31,7 @@ class AppState {
       loaderState: LoaderState.initial(),
       favState: FavState.initial(),
       searchNewsState: SearchNewsState.initial(),
+      loginState: LoginState.initial(),
     );
   }
 
@@ -35,6 +41,7 @@ class AppState {
       loaderState: state.loaderState.reducer(action),
       favState: state.favState.reducer(action),
       searchNewsState: state.searchNewsState.reducer(action),
+      loginState: state.loginState.reducer(action),
     );
   }
 
@@ -42,5 +49,7 @@ class AppState {
   static final getAppEpic = combineEpics<AppState>([
     NewsEpic.indexEpic,
     SearchNewsEpic.indexEpic,
+    LoginEpic.indexEpic,
+    FavEpic.indexEpic,
   ]);
 }

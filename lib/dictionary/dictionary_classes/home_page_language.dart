@@ -1,4 +1,3 @@
-
 class HomePageLanguage {
   final String load;
   final String news;
@@ -7,12 +6,10 @@ class HomePageLanguage {
   final String fTitle;
 
   const HomePageLanguage({
-   required this.load,
-   required this.news,
-   required this.lPage,
-   required this.nPage,
-   required this.fTitle,
-
+    required this.load,
+    required this.news,
+    required this.lPage,
+    required this.nPage,
+    required this.fTitle,
   });
-
 }

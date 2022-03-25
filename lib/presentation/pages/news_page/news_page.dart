@@ -75,7 +75,12 @@ class _NewsPageState extends State<NewsPage> {
                       children: [
                         InkWell(
                           onTap: () {
-                            _chekFav(widget.news.url!, vm) ? vm.deleteFav(widget.news) : vm.addFav(widget.news);
+                            if (_chekFav(widget.news.url!, vm)) {
+                              vm.deleteFav(widget.news);
+                            } else {
+                              vm.addFav(widget.news);
+                              vm.saveToDataBase(widget.news);
+                            }
                           },
                           child: Icon(
                             Icons.favorite,

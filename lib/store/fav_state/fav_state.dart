@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:news_paper/domain/entity/articles/articles_dto.dart';
 import 'package:news_paper/store/fav_state/actions/delete_fav_action.dart';
 import 'package:news_paper/store/fav_state/actions/save_fav_action.dart';
+import 'package:news_paper/store/fav_state/actions/save_list_fav_action.dart';
 import 'package:news_paper/store/reducer.dart';
 
 class FavState {
@@ -25,6 +26,7 @@ class FavState {
       actions: HashMap.from({
         SaveFavAction: (dynamic action) => _saveFavAction(action as SaveFavAction),
         DeleteFavAction: (dynamic action) => _deleteFavAction(action as DeleteFavAction),
+        SaveListFavAction: (dynamic action) => _saveFavListAction(action as SaveListFavAction),
       }),
     ).updateState(action, this);
   }
@@ -42,5 +44,9 @@ class FavState {
     return copyWith(
       articlesDto: articlesDto,
     );
+  }
+
+  FavState _saveFavListAction(SaveListFavAction action) {
+    return copyWith(articlesDto: action.news);
   }
 }

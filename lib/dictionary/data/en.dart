@@ -1,17 +1,25 @@
+import 'package:news_paper/dictionary/dictionary_classes/login_page_language.dart';
 import 'package:news_paper/dictionary/dictionary_classes/news_page_language.dart';
 import 'package:news_paper/dictionary/dictionary_classes/home_page_language.dart';
 import 'package:news_paper/dictionary/models/language.dart';
 
 const Language en = Language(
   newsPageLanguage: NewsPageLanguage(
-    read:"Read more..",
+    read:'Read more..',
     title:  'Bitcoin',
   ),
   homePageLanguage: HomePageLanguage(
-      load: "loading...",
-      news: "News",
-      lPage: "Last page",
-      nPage: "Next page",
-      fTitle: "Favorite"
+      load: 'loading...',
+      news: 'News',
+      lPage: 'Last page',
+      nPage: 'Next page',
+      fTitle: 'Favorite'
+  ),
+  loginPageLanguage: LoginPageLanguage(
+    login: 'login',
+    password: 'Password',
+    singIn: 'SingIn',
+    singUp: 'SingUp',
+    cPassword: 'Confirm password',
   ),
 );

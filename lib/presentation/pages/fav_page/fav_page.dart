@@ -37,8 +37,13 @@ class _FavPageState extends State<FavPage> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, FavPageVM>(
       converter: FavPageVM.init,
+      onInitialBuild: (vm) {
+        vm.getDataFromDataBase();
+      },
       builder: (context, vm) {
         return MainLayout(
+          bottomNavigationBar: true,
+          appBar: true,
           body: loadingBooks(vm),
           selectedIndex: 1,
           title: language.fTitle,
@@ -67,21 +72,22 @@ class _FavPageState extends State<FavPage> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, index) {
                         return SizedBox(
-                            width: 106.0,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                  AppRoutes.newsPage,
-                                  arguments: NewsPageData(
-                                    news: vm.articlesDto[index],
-                                  ),
-                                );
-                              },
-                              child: NewsCard(
-                                link: vm.articlesDto[index].urlToImage!,
-                                titleNews: vm.articlesDto[index].title!,
-                              ),
-                            ));
+                          width: 106.0,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                AppRoutes.newsPage,
+                                arguments: NewsPageData(
+                                  news: vm.articlesDto[index],
+                                ),
+                              );
+                            },
+                            child: NewsCard(
+                              link: vm.articlesDto[index].urlToImage!,
+                              titleNews: vm.articlesDto[index].title!,
+                            ),
+                          ),
+                        );
                       },
                       childCount: vm.articlesDto.length,
                     ),

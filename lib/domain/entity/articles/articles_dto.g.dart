@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: non_constant_identifier_names
+
 part of 'articles_dto.dart';
 
 // **************************************************************************
@@ -15,9 +17,6 @@ _$_ArticlesDto _$$_ArticlesDtoFromJson(Map<String, dynamic> json) =>
       urlToImage: json['urlToImage'] as String?,
       publishedAt: json['publishedAt'] as String?,
       content: json['content'] as String?,
-      source: json['source'] == null
-          ? null
-          : SourceDto.fromJson(json['source'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_ArticlesDtoToJson(_$_ArticlesDto instance) =>
@@ -29,5 +28,4 @@ Map<String, dynamic> _$$_ArticlesDtoToJson(_$_ArticlesDto instance) =>
       'urlToImage': instance.urlToImage,
       'publishedAt': instance.publishedAt,
       'content': instance.content,
-      'source': instance.source,
     };

@@ -1,7 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:news_paper/domain/entity/source/source_dto.dart';
 
 part 'articles_dto.freezed.dart';
  part 'articles_dto.g.dart';
@@ -16,7 +15,6 @@ class ArticlesDto with _$ArticlesDto {
     @JsonKey(name: 'urlToImage') required final String? urlToImage,
     @JsonKey(name: 'publishedAt') required final String? publishedAt,
     @JsonKey(name: 'content') required final String? content,
-    @JsonKey(name: 'source') required final SourceDto? source,
   }) = _ArticlesDto;
 
   factory ArticlesDto.fromJson(Map<String, dynamic> json) =>
