@@ -42,12 +42,6 @@ class AppState {
       searchNewsState: state.searchNewsState.reducer(action),
       loginState: state.loginState.reducer(action),
       favState: state.favState.reducer(action),
-
-      // loaderState: loaderReducer( state.loaderState , action ),
-      // searchNewsState: searchNewsReducer( state.searchNewsState,action),
-      // loginState: loginReducer( state.loginState,action),
-      // favState: favReducer( state.favState,action),
-      // newsState: mewsReducer( state.newsState,action),
     );
   }
 
