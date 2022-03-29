@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:news_paper/aplication/aplication.dart';
-import 'package:news_paper/utils/init.dart';
+import 'package:news_paper/presentation/aplication/aplication.dart';
+import 'package:news_paper/shared/init.dart';
+import 'package:news_paper/store/application/app_state.dart';
+import 'package:redux/redux.dart';
+import 'package:redux_epics/redux_epics.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await InitApp.init();
-
+  final Store<AppState> store = Store<AppState>(
+    AppState.getReducer,
+    initialState: AppState.initial(),
+    middleware: [
+      EpicMiddleware(AppState.getAppEpic),
+    ],
+  );
   runApp(
-    Application(),
+    Application(store: store),
   );
 }

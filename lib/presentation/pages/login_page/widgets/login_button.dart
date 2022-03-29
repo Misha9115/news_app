@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_paper/res/app_colors.dart';
 import 'package:news_paper/res/app_fonts.dart';
-import 'package:news_paper/res/app_gradient.dart';
-import 'package:news_paper/res/app_shadows.dart';
-
+import 'package:news_paper/res/app_styles.dart';
 
 class GlobalButton extends StatelessWidget {
   final String text;
@@ -14,7 +11,7 @@ class GlobalButton extends StatelessWidget {
     required this.text,
     required this.onTap,
     this.margin = const EdgeInsets.symmetric(horizontal: 22.0),
-     Key? key,
+    Key? key,
   }) : super(key: key);
 
   @override

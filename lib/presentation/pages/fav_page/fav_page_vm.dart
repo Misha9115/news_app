@@ -1,8 +1,8 @@
 import 'package:news_paper/domain/entity/articles/articles_dto.dart';
 import 'package:news_paper/domain/entity/news_list/news_list_dto.dart';
 import 'package:news_paper/store/application/app_state.dart';
-import 'package:news_paper/store/fav_state/fav_selectors.dart';
-import 'package:news_paper/store/news_state/news_selector.dart';
+import 'package:news_paper/store/fav/fav_selectors.dart';
+import 'package:news_paper/store/news/news_selector.dart';
 import 'package:redux/redux.dart';
 
 class FavPageVM {

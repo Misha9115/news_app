@@ -1,7 +1,7 @@
 import 'package:news_paper/domain/entity/news_list/news_list_dto.dart';
 import 'package:news_paper/store/application/app_state.dart';
-import 'package:news_paper/store/loader_state/loader_selector.dart';
-import 'package:news_paper/store/news_state/news_selector.dart';
+import 'package:news_paper/store/loader/loader_selector.dart';
+import 'package:news_paper/store/news/news_selector.dart';
 import 'package:redux/redux.dart';
 
 class HomePageVM {

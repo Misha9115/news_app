@@ -19,17 +19,17 @@ abstract class RestApiNews {
 
   @GET('/everything?q=bitcoin&apiKey=ba07744ce70944eb8b6f23740d1e5106&pageSize={pageSize}&page={page}')
   Future<NewsListDto> getNewsWithPagination(
-      @Query("q") String searchWord,
-      @Query("apiKey") String apiKey,
-      @Path("pageSize") int pageSize,
-      @Path("page") int page,
-      );
+    @Query("q") String searchWord,
+    @Query("apiKey") String apiKey,
+    @Path("pageSize") int pageSize,
+    @Path("page") int page,
+  );
+
   @GET('/everything?q={q}&apiKey=ba07744ce70944eb8b6f23740d1e5106&pageSize={pageSize}&page={page}')
   Future<NewsListDto> getNewsWithParams(
-      @Path("q") String q,
-      @Query("apiKey") String apiKey,
-      @Path("pageSize") int pageSize,
-      @Path("page") int page,
-      );
+    @Path("q") String q,
+    @Query("apiKey") String apiKey,
+    @Path("pageSize") int pageSize,
+    @Path("page") int page,
+  );
 }
-

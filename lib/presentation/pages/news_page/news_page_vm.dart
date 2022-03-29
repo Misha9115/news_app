@@ -1,6 +1,6 @@
 import 'package:news_paper/domain/entity/articles/articles_dto.dart';
 import 'package:news_paper/store/application/app_state.dart';
-import 'package:news_paper/store/fav_state/fav_selectors.dart';
+import 'package:news_paper/store/fav/fav_selectors.dart';
 import 'package:redux/redux.dart';
 
 class NewsPageVM {

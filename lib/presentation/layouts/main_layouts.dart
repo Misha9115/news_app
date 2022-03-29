@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_paper/res/app_routes.dart';
+import 'package:news_paper/route_manager/routes.dart';
 
 class MainLayout extends StatefulWidget {
   int selectedIndex = 0;
@@ -57,19 +57,13 @@ class _MainLayoutState extends State<MainLayout> {
   void _onItemTapped(int index) {
     if (widget.selectedIndex != index) {
       if (index == 0) {
-        Navigator.of(context).pushNamed(
-          AppRoutes.homePage,
-        );
+        Navigator.of(context).pushNamed(AppRoutes.homePage);
       }
       if (index == 1) {
-        Navigator.of(context).pushNamed(
-          AppRoutes.favPage,
-        );
+        Navigator.of(context).pushNamed(AppRoutes.favPage);
       }
       if (index == 2) {
-        Navigator.of(context).pushNamed(
-          AppRoutes.searchPage,
-        );
+        Navigator.of(context).pushNamed(AppRoutes.searchPage);
       }
     }
     setState(() {

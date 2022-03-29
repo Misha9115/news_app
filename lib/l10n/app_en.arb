@@ -1,0 +1,21 @@
+{
+
+  "loginPage": "This is just a normal string.",
+  "login": "login",
+  "password": "Password",
+  "singIn": "SingIn",
+  "singUp": "SingUp",
+  "cPassword": "Confirm password",
+
+  "load": "loading...",
+  "news": "News",
+  "lPage": "Last page",
+  "nPage": "Next page",
+  "fTitle": "Favorite",
+
+  "read":"Read more..",
+  "title":  "Bitcoin"
+
+
+
+}

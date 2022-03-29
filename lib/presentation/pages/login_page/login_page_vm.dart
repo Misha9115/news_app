@@ -1,11 +1,11 @@
 import 'package:news_paper/store/application/app_state.dart';
-import 'package:news_paper/store/login_state/login_selector.dart';
+import 'package:news_paper/store/login/login_selector.dart';
 import 'package:redux/redux.dart';
 
 class LoginPageVM {
   final bool isLogin;
-  final void Function(String email,String password) registration;
-  final void Function(String email,String password) login;
+  final void Function(String email, String password) registration;
+  final void Function(String email, String password) login;
 
   const LoginPageVM({
     required this.isLogin,

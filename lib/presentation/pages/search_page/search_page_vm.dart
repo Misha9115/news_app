@@ -1,7 +1,7 @@
 import 'package:news_paper/domain/entity/articles/articles_dto.dart';
 import 'package:news_paper/store/application/app_state.dart';
-import 'package:news_paper/store/loader_state/loader_selector.dart';
-import 'package:news_paper/store/search_news_state/search_news_selcor.dart';
+import 'package:news_paper/store/loader/loader_selector.dart';
+import 'package:news_paper/store/search_news/search_news_selcor.dart';
 import 'package:redux/redux.dart';
 
 class SearchPageVM {

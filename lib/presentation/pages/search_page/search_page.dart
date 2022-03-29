@@ -2,20 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:news_paper/dictionary/data/en.dart';
-import 'package:news_paper/dictionary/dictionary_classes/home_page_language.dart';
-import 'package:news_paper/dictionary/flutter_dictionary.dart';
 import 'package:news_paper/presentation/layouts/main_layouts.dart';
 import 'package:news_paper/presentation/pages/search_page/search_page_vm.dart';
 import 'package:news_paper/presentation/widgets/custom_text_field.dart';
 import 'package:news_paper/presentation/widgets/news_card.dart';
 import 'package:news_paper/presentation/widgets/silver_grid_delegate.dart';
-import 'package:news_paper/res/app_colors.dart';
 import 'package:news_paper/res/app_consts.dart';
 import 'package:news_paper/res/app_fonts.dart';
-import 'package:news_paper/res/app_routes.dart';
-import 'package:news_paper/route_helper/models/news_page_data.dart';
+import 'package:news_paper/res/app_styles.dart';
+import 'package:news_paper/route_manager/routes.dart';
+import 'package:news_paper/route_manager/models/news_page_data.dart';
 import 'package:news_paper/store/application/app_state.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -25,8 +23,6 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  HomePageLanguage language = FlutterDictionary.instance.language?.homePageLanguage ?? en.homePageLanguage;
-
   final ScrollController _singleChildScroll = ScrollController();
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _myTextController = TextEditingController();
@@ -49,7 +45,7 @@ class _SearchPageState extends State<SearchPage> {
           appBar: true,
           body: loadingBooks(vm),
           selectedIndex: 2,
-          title: language.news,
+          title: AppLocalizations.of(context)!.news,
         );
       },
     );
@@ -94,7 +90,7 @@ class _SearchPageState extends State<SearchPage> {
                       height: MediaQuery.of(context).size.height * 0.5,
                       child: Center(
                         child: Text(
-                          language.load,
+                          AppLocalizations.of(context)!.load,
                           style: AppFonts.loadingText,
                         ),
                       ),
@@ -156,7 +152,7 @@ class _SearchPageState extends State<SearchPage> {
                     }
                   },
                   child: Text(
-                    language.lPage,
+                    AppLocalizations.of(context)!.lPage,
                     style: AppFonts.bottomBarTextStyle,
                   ),
                 ),
@@ -166,7 +162,7 @@ class _SearchPageState extends State<SearchPage> {
                     vm.changeNewsPage(vm.page + 1);
                   },
                   child: Text(
-                    language.nPage,
+                    AppLocalizations.of(context)!.nPage,
                     style: AppFonts.bottomBarTextStyle,
                   ),
                 ),

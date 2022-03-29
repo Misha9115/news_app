@@ -2,18 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:news_paper/dictionary/data/en.dart';
-import 'package:news_paper/dictionary/dictionary_classes/home_page_language.dart';
-import 'package:news_paper/dictionary/dictionary_classes/login_page_language.dart';
-import 'package:news_paper/dictionary/flutter_dictionary.dart';
 import 'package:news_paper/presentation/layouts/main_layouts.dart';
 import 'package:news_paper/presentation/pages/login_page/login_page_vm.dart';
 import 'package:news_paper/presentation/pages/login_page/widgets/login_button.dart';
 import 'package:news_paper/presentation/widgets/custom_text_field.dart';
-import 'package:news_paper/res/app_colors.dart';
 import 'package:news_paper/res/app_consts.dart';
 import 'package:news_paper/res/app_fonts.dart';
+import 'package:news_paper/res/app_styles.dart';
 import 'package:news_paper/store/application/app_state.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -31,8 +28,6 @@ class _LoginPageState extends State<LoginPage> {
   bool _checkIsSingIn = true;
 
   double offset = 0.0;
-
-  LoginPageLanguage language = FlutterDictionary.instance.language?.loginPageLanguage ?? en.loginPageLanguage;
 
   @override
   void dispose() {
@@ -98,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             child: Center(
                               child: Text(
-                                language.singIn,
+                                AppLocalizations.of(context)!.singIn,
                                 style: _checkIsSingIn ? AppFonts.signButtonA : AppFonts.signButtonP,
                               ),
                             ),
@@ -122,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             child: Center(
                               child: Text(
-                                language.singUp,
+                                AppLocalizations.of(context)!.singUp,
                                 style: _checkIsSingIn ? AppFonts.signButtonP : AppFonts.signButtonA,
                               ),
                             ),
@@ -137,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 28.0),
                   child: Text(
-                    _checkIsSingIn ? language.singIn : language.singUp,
+                    _checkIsSingIn ? AppLocalizations.of(context)!.singIn : AppLocalizations.of(context)!.singUp,
                     style: AppFonts.emptyFav,
                   ),
                 ),
@@ -145,13 +140,13 @@ class _LoginPageState extends State<LoginPage> {
               AppTextField(
                 controller: _loginController,
                 keyValue: keyLogin,
-                hintText: language.login,
+                hintText: AppLocalizations.of(context)!.login,
               ),
               const SizedBox(height: 15.0),
               AppTextField(
                 controller: _passwordController,
                 keyValue: keyPassword,
-                hintText: language.password,
+                hintText: AppLocalizations.of(context)!.password,
               ),
               _checkIsSingIn
                   ? const SizedBox(
@@ -163,13 +158,13 @@ class _LoginPageState extends State<LoginPage> {
                         AppTextField(
                           controller: _confirmPasswordController,
                           keyValue: keyConfirmPassword,
-                          hintText: language.cPassword,
+                          hintText: AppLocalizations.of(context)!.cPassword,
                         ),
                         const SizedBox(height: 15.0),
                       ],
                     ),
               GlobalButton(
-                text: _checkIsSingIn ? language.singIn : language.singUp,
+                text: _checkIsSingIn ? AppLocalizations.of(context)!.singIn : AppLocalizations.of(context)!.singUp,
                 onTap: () {
                   _checkIsSingIn
                       ? vm.login(_loginController.text, _passwordController.text)

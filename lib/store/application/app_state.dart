@@ -1,12 +1,12 @@
-import 'package:news_paper/store/fav_state/fav_epic.dart';
-import 'package:news_paper/store/fav_state/fav_state.dart';
-import 'package:news_paper/store/loader_state/loader_state.dart';
-import 'package:news_paper/store/login_state/login_epic.dart';
-import 'package:news_paper/store/login_state/login_state.dart';
-import 'package:news_paper/store/news_state/news_epic.dart';
-import 'package:news_paper/store/news_state/news_state.dart';
-import 'package:news_paper/store/search_news_state/search_news_epic.dart';
-import 'package:news_paper/store/search_news_state/search_news_state.dart';
+import 'package:news_paper/store/fav/fav_epic.dart';
+import 'package:news_paper/store/fav/fav_state.dart';
+import 'package:news_paper/store/loader/loader_state.dart';
+import 'package:news_paper/store/login/login_epic.dart';
+import 'package:news_paper/store/login/login_state.dart';
+import 'package:news_paper/store/news/news_epic.dart';
+import 'package:news_paper/store/news/news_state.dart';
+import 'package:news_paper/store/search_news/search_news_epic.dart';
+import 'package:news_paper/store/search_news/search_news_state.dart';
 import 'package:redux_epics/redux_epics.dart';
 
 class AppState {
@@ -39,9 +39,15 @@ class AppState {
     return AppState(
       newsState: state.newsState.reducer(action),
       loaderState: state.loaderState.reducer(action),
-      favState: state.favState.reducer(action),
       searchNewsState: state.searchNewsState.reducer(action),
       loginState: state.loginState.reducer(action),
+      favState: state.favState.reducer(action),
+
+      // loaderState: loaderReducer( state.loaderState , action ),
+      // searchNewsState: searchNewsReducer( state.searchNewsState,action),
+      // loginState: loginReducer( state.loginState,action),
+      // favState: favReducer( state.favState,action),
+      // newsState: mewsReducer( state.newsState,action),
     );
   }
 

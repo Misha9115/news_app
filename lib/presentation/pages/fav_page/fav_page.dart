@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:news_paper/dictionary/data/en.dart';
-import 'package:news_paper/dictionary/dictionary_classes/home_page_language.dart';
-import 'package:news_paper/dictionary/flutter_dictionary.dart';
 import 'package:news_paper/presentation/layouts/main_layouts.dart';
 import 'package:news_paper/presentation/pages/fav_page/fav_page_vm.dart';
 import 'package:news_paper/presentation/widgets/news_card.dart';
 import 'package:news_paper/presentation/widgets/silver_grid_delegate.dart';
-import 'package:news_paper/res/app_routes.dart';
-import 'package:news_paper/route_helper/models/news_page_data.dart';
+import 'package:news_paper/route_manager/models/news_page_data.dart';
+import 'package:news_paper/route_manager/routes.dart';
 import 'package:news_paper/store/application/app_state.dart';
 
 class FavPage extends StatefulWidget {
@@ -24,8 +22,6 @@ class _FavPageState extends State<FavPage> {
   final ScrollController _singleChildScroll = ScrollController();
   final ScrollController _scrollController = ScrollController();
   double offset = 0.0;
-
-  HomePageLanguage language = FlutterDictionary.instance.language?.homePageLanguage ?? en.homePageLanguage;
 
   @override
   void dispose() {
@@ -46,7 +42,7 @@ class _FavPageState extends State<FavPage> {
           appBar: true,
           body: loadingBooks(vm),
           selectedIndex: 1,
-          title: language.fTitle,
+          title: AppLocalizations.of(context)!.fTitle,
         );
       },
     );

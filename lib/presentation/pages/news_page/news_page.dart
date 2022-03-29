@@ -2,16 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
-import 'package:news_paper/dictionary/data/en.dart';
-import 'package:news_paper/dictionary/dictionary_classes/news_page_language.dart';
-import 'package:news_paper/dictionary/flutter_dictionary.dart';
 import 'package:news_paper/domain/entity/articles/articles_dto.dart';
 import 'package:news_paper/presentation/pages/news_page/news_page_vm.dart';
-import 'package:news_paper/res/app_colors.dart';
 import 'package:news_paper/res/app_consts.dart';
 import 'package:news_paper/res/app_fonts.dart';
+import 'package:news_paper/res/app_styles.dart';
 import 'package:news_paper/store/application/app_state.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewsPage extends StatefulWidget {
   final ArticlesDto news;
@@ -23,8 +21,6 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
-  NewsPageLanguage language = FlutterDictionary.instance.language?.newsPageLanguage ?? en.newsPageLanguage;
-
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, NewsPageVM>(
@@ -32,7 +28,7 @@ class _NewsPageState extends State<NewsPage> {
       builder: (context, vm) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(language.title.toString()),
+            title: Text(AppLocalizations.of(context)!.title.toString()),
           ),
           body: ListView(
             children: [
@@ -94,7 +90,7 @@ class _NewsPageState extends State<NewsPage> {
                             _launchURL(widget.news.url);
                           },
                           child: Text(
-                            language.read,
+                            AppLocalizations.of(context)!.read,
                             style: AppFonts.readMore,
                           ),
                         ),

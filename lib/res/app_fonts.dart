@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_paper/res/app_colors.dart';
+import 'package:news_paper/res/app_styles.dart';
 
 class AppFonts {
   static const TextStyle loadingText = TextStyle(
