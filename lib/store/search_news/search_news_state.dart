@@ -1,8 +1,5 @@
-import 'dart:collection';
-
 import 'package:news_paper/domain/entity/articles/articles_dto.dart';
-import 'package:news_paper/store/reducer.dart';
-import 'package:news_paper/store/search_news/search_news_actions.dart';
+
 
 class SearchNewsState {
   final List<ArticlesDto> searchNewsListDto;
@@ -27,25 +24,5 @@ class SearchNewsState {
     );
   }
 
-  SearchNewsState reducer(dynamic action) {
-    return Reducer<SearchNewsState>(
-      actions: HashMap.from({
-        SaveSearchNewsAction: (dynamic action) => _saveSearchNewsAction(action as SaveSearchNewsAction),
-        ClearNewsSearchAction: (dynamic action) => _clearSearchNewsAction(action as ClearNewsSearchAction),
-        ChangeNumberSearchPageAction: (dynamic action) => _changeNumberSearchPageAction(action as ChangeNumberSearchPageAction),
-      }),
-    ).updateState(action, this);
-  }
 
-  SearchNewsState _saveSearchNewsAction(SaveSearchNewsAction action) {
-    return copyWith(searchNewsListDto: action.news);
-  }
-
-  SearchNewsState _clearSearchNewsAction(ClearNewsSearchAction action) {
-    return copyWith(searchNewsListDto: []);
-  }
-
-  SearchNewsState _changeNumberSearchPageAction(ChangeNumberSearchPageAction action) {
-    return copyWith(pageNumber: action.page);
-  }
 }
