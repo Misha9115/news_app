@@ -1,8 +1,3 @@
-import 'dart:collection';
-
-import 'package:news_paper/store/loader/loader_actions.dart';
-import 'package:news_paper/store/reducer.dart';
-
 class LoaderState {
   final bool paginationLoader;
 
@@ -18,17 +13,5 @@ class LoaderState {
     return LoaderState(
       paginationLoader: paginationLoader ?? this.paginationLoader,
     );
-  }
-
-  LoaderState reducer(dynamic action) {
-    return Reducer<LoaderState>(
-      actions: HashMap.from({
-        ChangePaginationLoader: (dynamic action) => _savePaginationAction(action as ChangePaginationLoader),
-      }),
-    ).updateState(action, this);
-  }
-
-  LoaderState _savePaginationAction(ChangePaginationLoader action) {
-    return copyWith(paginationLoader: action.paginationLoader);
   }
 }

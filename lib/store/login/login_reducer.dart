@@ -1,17 +1,14 @@
-import 'dart:collection';
-
 import 'package:news_paper/store/login/login_actions.dart';
 import 'package:news_paper/store/login/login_state.dart';
-import 'package:news_paper/store/reducer.dart';
 
 LoginState loginReducer(LoginState state, dynamic action) {
-  return Reducer<LoginState>(
-    actions: HashMap.from({
-      SaveUserAction: (dynamic action, LoginState state) => _saveUserAction(action as SaveUserAction, state),
-    }),
-  ).updateState(action, state);
+  if (action is SaveUserAction) {
+    return _saveUserAction(state, action);
+  }
+
+  return state;
 }
 
-LoginState _saveUserAction(SaveUserAction action, LoginState state) {
+LoginState _saveUserAction(LoginState state, SaveUserAction action) {
   return state.copyWith(user: action.user);
 }
