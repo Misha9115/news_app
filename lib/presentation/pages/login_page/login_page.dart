@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:news_paper/presentation/layouts/main_layouts.dart';
 import 'package:news_paper/presentation/pages/login_page/login_page_vm.dart';
+import 'package:news_paper/presentation/pages/login_page/widgets/global_button.dart';
 import 'package:news_paper/presentation/pages/login_page/widgets/login_button.dart';
 import 'package:news_paper/presentation/widgets/custom_text_field.dart';
 import 'package:news_paper/res/app_consts.dart';
@@ -149,9 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                 hintText: AppLocalizations.of(context)!.password,
               ),
               _checkIsSingIn
-                  ? const SizedBox(
-                      height: 15.0,
-                    )
+                  ? const SizedBox(               )
                   : Column(
                       children: [
                         const SizedBox(height: 15.0),
@@ -163,6 +162,17 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 15.0),
                       ],
                     ),
+              LoginButton(
+                function:  () {
+                  vm.registrationWithGoogle();
+                },
+                hintTextStyle:  AppFonts.buttonLogReg ,
+                image: 'assets/google_logo.png',
+                padding: 20.0,
+                onTap: _checkIsSingIn,
+                textR: AppLocalizations.of(context)!.singUp,
+                textS:  AppLocalizations.of(context)!.singIn,
+              ),
               GlobalButton(
                 text: _checkIsSingIn ? AppLocalizations.of(context)!.singIn : AppLocalizations.of(context)!.singUp,
                 onTap: () {

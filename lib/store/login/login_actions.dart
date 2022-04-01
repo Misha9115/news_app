@@ -18,7 +18,13 @@ class SaveUserAction extends BaseAction {
     required this.user,
   }) : super(type: 'SaveUserAction');
 }
+class SaveUserWIthGoogleAction extends BaseAction {
+  String user;
 
+  SaveUserWIthGoogleAction({
+    required this.user,
+  }) : super(type: 'SaveUserAction');
+}
 class RegistrationAction extends BaseAction {
   final String email;
   final String password;
@@ -27,4 +33,12 @@ class RegistrationAction extends BaseAction {
     required this.email,
     required this.password,
   }) : super(type: 'RegistrationAction');
+}
+
+class RegistrationWithGoogleAction extends BaseAction {
+  RegistrationWithGoogleAction() : super(type: 'RegistrationWithGoogleAction');
+}
+
+class LoginWithGoogleAction extends BaseAction {
+  LoginWithGoogleAction() : super(type: 'LoginWithGoogleAction');
 }

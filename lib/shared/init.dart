@@ -5,5 +5,6 @@ class InitApp {
   static Future<void> init() async {
     CustomLocator.initLocator();
     Firebase.initializeApp();
+
   }
 }

@@ -65,4 +65,11 @@ class AppFonts {
     color: AppColors.black,
     fontWeight: FontWeight.w700,
   );
+  static const TextStyle buttonLogReg = TextStyle(
+    fontFamily: 'SFProText',
+    fontSize: 16.0,
+    color: AppColors.black,
+    fontWeight: FontWeight.w500,
+  );
+
 }

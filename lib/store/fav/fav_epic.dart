@@ -1,6 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:news_paper/domain/entity/articles/articles_dto.dart';
+import 'package:news_paper/domain/service/analitics_service.dart';
 import 'package:news_paper/network/news_dao.dart';
+import 'package:news_paper/shared/locator.dart';
 import 'package:news_paper/store/application/app_state.dart';
 import 'package:news_paper/store/fav/fav_actions.dart';
 import 'package:redux_epics/redux_epics.dart';
@@ -15,8 +17,16 @@ class FavEpic {
   static Stream<dynamic> _sendData(Stream<dynamic> actions, EpicStore<AppState> store) {
     return actions.whereType<SaveToDataBaseAction>().switchMap(
       (action) async* {
+        final AnalyticService _analyticsService = getIt<AnalyticService>();
+
         final newsDao = NewsDao();
-        newsDao.saveNews(action.news, store.state.loginState.user!.uid);
+        if (store.state.loginState.user != null) {
+          newsDao.saveNews(action.news, store.state.loginState.user!.uid);
+          _analyticsService.addToFav(userID: store.state.loginState.user!.uid, link: action.news.url!);
+        } else if (store.state.loginState.userId != null) {
+          newsDao.saveNews(action.news, store.state.loginState.userId!);
+          _analyticsService.addToFav(userID: store.state.loginState.userId!, link: action.news.url!);
+        }
       },
     );
   }
@@ -25,7 +35,13 @@ class FavEpic {
     return actions.whereType<GetDataRomDataBaseAction>().switchMap(
       (action) async* {
         final newsDao = NewsDao();
-        DataSnapshot event = await newsDao.getNewsQuery(store.state.loginState.user!.uid).get();
+        DataSnapshot event;
+        if (store.state.loginState.user != null) {
+          event = await newsDao.getNewsQuery(store.state.loginState.user!.uid).get();
+        } else {
+          event = await newsDao.getNewsQuery(store.state.loginState.userId!).get();
+        }
+
         List<ArticlesDto> news = [];
         ArticlesDto oneNews;
         Map<dynamic, dynamic> values = event.value;
@@ -50,20 +66,31 @@ class FavEpic {
   static Stream<dynamic> _deleteOnePost(Stream<dynamic> actions, EpicStore<AppState> store) {
     return actions.whereType<DeleteFavAction>().switchMap(
       (action) async* {
+        final AnalyticService _analyticsService = getIt<AnalyticService>();
+
         final newsDao = NewsDao();
         String keyS = '';
-        DataSnapshot event = await newsDao.getNewsQuery(store.state.loginState.user!.uid).get();
+        DataSnapshot event;
+        if (store.state.loginState.user != null) {
+          event = await newsDao.getNewsQuery(store.state.loginState.user!.uid).get();
+        } else {
+          event = await newsDao.getNewsQuery(store.state.loginState.userId!).get();
+        }
         Map<dynamic, dynamic> values = event.value;
-        values.forEach((key, values) {
-          if (key == store.state.loginState.user!.uid) {
-            values.forEach((key, values) {
-              if (values["url"] == action.news.url) {
-                keyS = key;
-              }
-            });
-          }
+        values.forEach((key, res) {
+          values.forEach((key, resV) {
+            if (resV["url"] == action.news.url) {
+              keyS = key;
+            }
+          });
         });
-        newsDao.deleteNews(keyS, store.state.loginState.user!.uid);
+        if (store.state.loginState.user != null) {
+          newsDao.deleteNews(keyS, store.state.loginState.user!.uid);
+          _analyticsService.deleteToFav(userID: store.state.loginState.user!.uid, link: action.news.url!);
+        } else {
+          newsDao.deleteNews(keyS, store.state.loginState.userId!);
+          _analyticsService.deleteToFav(userID: store.state.loginState.userId!, link: action.news.url!);
+        }
       },
     );
   }

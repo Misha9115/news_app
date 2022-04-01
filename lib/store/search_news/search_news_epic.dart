@@ -1,4 +1,5 @@
 import 'package:news_paper/domain/entity/news_list/news_list_dto.dart';
+import 'package:news_paper/domain/service/analitics_service.dart';
 import 'package:news_paper/network/news_repository.dart';
 import 'package:news_paper/store/application/app_state.dart';
 import 'package:news_paper/store/loader/loader_actions.dart';
@@ -16,7 +17,14 @@ class SearchNewsEpic {
   static Stream<dynamic> _getSearchNews(Stream<dynamic> actions, EpicStore<AppState> store) {
     return actions.whereType<GetSearchNewsAction>().switchMap(
       (action) async* {
+        final AnalyticService _analyticsService = getIt<AnalyticService>();
         NewsListDto? result = await getIt<NewsRepository>().getNewsWithParams(q: action.searchRequest, page: 1, pageSize: action.pageSize);
+        if( store.state.loginState.userId!=null){
+          _analyticsService.searchNews(userID: store.state.loginState.userId!, searchRequest: action.searchRequest);
+        }
+        else{
+          _analyticsService.searchNews(userID: store.state.loginState.user!.uid, searchRequest:  action.searchRequest);
+        }
 
         yield* Stream.value(SaveSearchNewsAction(news: result.articles!));
       },

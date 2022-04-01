@@ -41,4 +41,14 @@ class AppShadows {
       ),
     ];
   }
+  static List<BoxShadow> shadowsTextField(Color color) {
+    return [
+      BoxShadow(
+        offset: const Offset(0.0, 3.0),
+        color: color.withOpacity(0.8),
+        spreadRadius: -1.0,
+        blurRadius: 4.0,
+      ),
+    ];
+  }
 }
