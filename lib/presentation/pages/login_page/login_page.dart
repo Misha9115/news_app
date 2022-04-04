@@ -173,9 +173,10 @@ class _LoginPageState extends State<LoginPage> {
                 textR: AppLocalizations.of(context)!.singUp,
                 textS:  AppLocalizations.of(context)!.singIn,
               ),
-              GlobalButton(
+              GlobalButton(key: GlobalKey(debugLabel: 'rtrrfdgfdg'),
                 text: _checkIsSingIn ? AppLocalizations.of(context)!.singIn : AppLocalizations.of(context)!.singUp,
                 onTap: () {
+
                   _checkIsSingIn
                       ? vm.login(_loginController.text, _passwordController.text)
                       : vm.registration(_loginController.text, _passwordController.text);

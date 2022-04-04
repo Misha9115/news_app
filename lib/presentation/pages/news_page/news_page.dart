@@ -20,11 +20,35 @@ class NewsPage extends StatefulWidget {
   _NewsPageState createState() => _NewsPageState();
 }
 
-class _NewsPageState extends State<NewsPage> {
+class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation _colorTween;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    _colorTween = ColorTween(begin: Colors.grey, end: Colors.red).animate(_animationController);
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _animationController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, NewsPageVM>(
       converter: NewsPageVM.init,
+      onInitialBuild: (NewsPageVM vm) {
+        if (_chekFav(widget.news.url!, vm)) {
+          _animationController.forward();
+        } else {
+          _animationController.reverse();
+        }
+      },
       builder: (context, vm) {
         return Scaffold(
           appBar: AppBar(
@@ -69,22 +93,32 @@ class _NewsPageState extends State<NewsPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            if (_chekFav(widget.news.url!, vm)) {
-                              vm.deleteFav(widget.news);
-                            } else {
-                              vm.addFav(widget.news);
-                              vm.saveToDataBase(widget.news);
-                            }
-                          },
-                          child: Icon(
-                            Icons.favorite,
-                            color: _chekFav(widget.news.url!, vm) ? Colors.pink : Colors.grey,
-                            size: 24.0,
-                            semanticLabel: 'Text to announce in accessibility modes',
-                          ),
-                        ),
+                        AnimatedBuilder(
+                            animation: _colorTween,
+                            builder: (context, child) => InkWell(
+                                  onTap: () {
+                                    if (_animationController.status == AnimationStatus.completed) {
+                                      print('1');
+                                      _animationController.reverse();
+                                    } else {
+                                      print('2');
+                                      _animationController.forward();
+                                    }
+                                    if (_chekFav(widget.news.url!, vm)) {
+                                      vm.deleteFav(widget.news);
+                                    } else {
+                                      vm.addFav(widget.news);
+                                      vm.saveToDataBase(widget.news);
+                                    }
+                                  },
+                                  child: Icon(
+                                    Icons.favorite,
+                                    color: _colorTween.value,
+                                    size: 24.0,
+                                    semanticLabel: 'Text to announce in accessibility modes',
+                                  ),
+                                )
+                            ),
                         InkWell(
                           onTap: () {
                             _launchURL(widget.news.url);

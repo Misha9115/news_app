@@ -5,7 +5,11 @@ class NewsCard extends StatelessWidget {
   final String titleNews;
   final String? link;
 
-  const NewsCard({required this.titleNews, required this.link, Key? key}) : super(key: key);
+  const NewsCard({
+    required this.titleNews,
+    required this.link,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -91,22 +91,25 @@ class _HomePageState extends State<HomePage> {
                   SliverGrid(
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, index) {
-                        return SizedBox(
-                          width: 106.0,
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.of(context).pushNamed(
-                                AppRoutes.newsPage,
-                                arguments: NewsPageData(
-                                  news: vm.newsList.articles![index],
-                                ),
-                              );
-                            },
-                            child: NewsCard(
-                              link: vm.newsList.articles![index].urlToImage!,
-                              titleNews: vm.newsList.articles![index].title!,
+                        return
+
+                        SizedBox(
+                            width: 106.0,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                  AppRoutes.newsPage,
+                                  arguments: NewsPageData(
+                                    news: vm.newsList.articles![index],
+                                  ),
+                                );
+                              },
+                              child: NewsCard(
+                                link: vm.newsList.articles![index].urlToImage!,
+                                titleNews: vm.newsList.articles![index].title!,
+                              ),
                             ),
-                          ),
+
                         );
                       },
                       childCount: vm.newsList.articles!.length,
