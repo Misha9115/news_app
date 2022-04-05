@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
 import 'package:news_paper/domain/entity/articles/articles_dto.dart';
@@ -9,7 +10,6 @@ import 'package:news_paper/res/app_fonts.dart';
 import 'package:news_paper/res/app_styles.dart';
 import 'package:news_paper/store/application/app_state.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewsPage extends StatefulWidget {
   final ArticlesDto news;
@@ -51,85 +51,117 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
       },
       builder: (context, vm) {
         return Scaffold(
+          // backgroundColor: AppColors.grey,
           appBar: AppBar(
             title: Text(AppLocalizations.of(context)!.title.toString()),
           ),
           body: ListView(
             children: [
-              Stack(children: [
-                SizedBox(
-                  height: 250,
-                  child: FadeInImage.assetNetwork(
-                    placeholder: logo,
-                    image: widget.news.urlToImage ?? imageURL,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                    color: AppColors.mainColorDarkTwo,
-                    child: Text(
-                      DateFormat(dataTimeFormat).format(
-                        DateTime.parse(widget.news.publishedAt!),
-                      ),
-                      style: AppFonts.dataTime,
+              SizedBox(
+                height: 300.0,
+                child: Stack(children: [
+                  SizedBox(
+                    height: 300,
+                    width: MediaQuery.of(context).size.width,
+                    child: FadeInImage.assetNetwork(
+                      placeholder: logo,
+                      image: widget.news.urlToImage ?? imageURL,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Container(
-                    color: AppColors.mainColorDarkTwo,
-                    child: Text(widget.news.author ?? emptyString),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      margin: const EdgeInsets.all(7.0),
+                      padding: const EdgeInsets.all(3.0),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(7.0)),
+                        color: AppColors.white.withOpacity(0.7),
+                      ),
+                      child: Text(
+                        DateFormat(dataTimeFormat).format(
+                          DateTime.parse(widget.news.publishedAt!),
+                        ),
+                        style: AppFonts.dataTime,
+                      ),
+                    ),
                   ),
-                ),
-              ]),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 7.0),
+                      padding: const EdgeInsets.all(3.0),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(7.0)),
+                        color: AppColors.white.withOpacity(0.7),
+                      ),
+                      child: Text(widget.news.author ?? emptyString),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      height: 46.0,
+                      decoration: const BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(40.0),
+                            topRight: Radius.circular(40.0),
+                          )),
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              AnimatedBuilder(
+                                  animation: _colorTween,
+                                  builder: (context, child) => InkWell(
+                                        onTap: () {
+                                          if (_animationController.status == AnimationStatus.completed) {
+                                            _animationController.reverse();
+                                          } else {
+                                            _animationController.forward();
+                                          }
+                                          if (_chekFav(widget.news.url!, vm)) {
+                                            vm.deleteFav(widget.news);
+                                          } else {
+                                            vm.addFav(widget.news);
+                                            vm.saveToDataBase(widget.news);
+                                          }
+                                        },
+                                        child: Icon(
+                                          Icons.favorite,
+                                          color: _colorTween.value,
+                                          size: 24.0,
+                                          semanticLabel: 'Text to announce in accessibility modes',
+                                        ),
+                                      )),
+                              InkWell(
+                                onTap: () {
+                                  _launchURL(widget.news.url);
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context)!.read,
+                                  style: AppFonts.readMore,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ]),
+              ),
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                decoration: const BoxDecoration(
+                  color: AppColors.white,
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        AnimatedBuilder(
-                            animation: _colorTween,
-                            builder: (context, child) => InkWell(
-                                  onTap: () {
-                                    if (_animationController.status == AnimationStatus.completed) {
-                                      print('1');
-                                      _animationController.reverse();
-                                    } else {
-                                      print('2');
-                                      _animationController.forward();
-                                    }
-                                    if (_chekFav(widget.news.url!, vm)) {
-                                      vm.deleteFav(widget.news);
-                                    } else {
-                                      vm.addFav(widget.news);
-                                      vm.saveToDataBase(widget.news);
-                                    }
-                                  },
-                                  child: Icon(
-                                    Icons.favorite,
-                                    color: _colorTween.value,
-                                    size: 24.0,
-                                    semanticLabel: 'Text to announce in accessibility modes',
-                                  ),
-                                )
-                            ),
-                        InkWell(
-                          onTap: () {
-                            _launchURL(widget.news.url);
-                          },
-                          child: Text(
-                            AppLocalizations.of(context)!.read,
-                            style: AppFonts.readMore,
-                          ),
-                        ),
-                      ],
-                    ),
                     Text(
                       widget.news.title!,
                       style: AppFonts.cardText,

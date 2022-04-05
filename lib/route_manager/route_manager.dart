@@ -4,6 +4,7 @@ import 'package:news_paper/presentation/pages/home_page/home_page.dart';
 import 'package:news_paper/presentation/pages/login_page/login_page.dart';
 import 'package:news_paper/presentation/pages/news_page/news_page.dart';
 import 'package:news_paper/presentation/pages/search_page/search_page.dart';
+import 'package:news_paper/presentation/pages/splash_page/splash_page.dart';
 import 'package:news_paper/route_manager/routes.dart';
 import 'package:news_paper/route_manager/models/news_page_data.dart';
 
@@ -44,6 +45,11 @@ class RouteManager {
         return _defaultRoute(
           settings: settings,
           page: const LoginPage(),
+        );
+      case AppRoutes.splashPage:
+        return _defaultRoute(
+          settings: settings,
+          page: const SplashPage(),
         );
       default:
         return _defaultRoute(

@@ -61,6 +61,7 @@ dependencies:
   firebase_analytics: ^8.2.0
   firebase_auth: ^2.0.0
   google_sign_in: ^5.0.5
+  rive: ^0.8.4
   #firebase_crashlytics: ^2.1.1
 dependency_overrides:
   firebase_crashlytics: ^1.0.0
@@ -91,6 +92,13 @@ flutter:
      - assets/i18n/en.json
      - assets/i18n/ru.json
      - assets/google_logo.png
+     - assets/1534-2994-eye-icon.riv
+     - assets/centaur.riv
+     - assets/mB.png
+     - assets/mB.jpg
+     - assets/mb1.png
+     - assets/sign-uplogin-animation.riv
+
 
 
   fonts:

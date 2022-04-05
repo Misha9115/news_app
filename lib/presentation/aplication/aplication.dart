@@ -47,7 +47,7 @@ class Application extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         navigatorKey: RouteManager.instance.navigatorKey,
         onGenerateRoute: RouteManager.instance.onGenerateRoute,
-        initialRoute: AppRoutes.loginPage,
+        initialRoute: AppRoutes.splashPage,
         home: const HomePage(),
       ),
     );

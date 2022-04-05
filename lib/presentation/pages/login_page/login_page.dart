@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:news_paper/presentation/layouts/main_layouts.dart';
 import 'package:news_paper/presentation/pages/login_page/login_page_vm.dart';
@@ -11,7 +12,6 @@ import 'package:news_paper/res/app_consts.dart';
 import 'package:news_paper/res/app_fonts.dart';
 import 'package:news_paper/res/app_styles.dart';
 import 'package:news_paper/store/application/app_state.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 28.0),
+                  padding: const EdgeInsets.only(top: 28.0, bottom: 50.0),
                   child: Text(
                     _checkIsSingIn ? AppLocalizations.of(context)!.singIn : AppLocalizations.of(context)!.singUp,
                     style: AppFonts.emptyFav,
@@ -150,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                 hintText: AppLocalizations.of(context)!.password,
               ),
               _checkIsSingIn
-                  ? const SizedBox(               )
+                  ? const SizedBox()
                   : Column(
                       children: [
                         const SizedBox(height: 15.0),
@@ -163,20 +163,20 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
               LoginButton(
-                function:  () {
+                function: () {
                   vm.registrationWithGoogle();
                 },
-                hintTextStyle:  AppFonts.buttonLogReg ,
+                hintTextStyle: AppFonts.buttonLogReg,
                 image: 'assets/google_logo.png',
                 padding: 20.0,
                 onTap: _checkIsSingIn,
                 textR: AppLocalizations.of(context)!.singUp,
-                textS:  AppLocalizations.of(context)!.singIn,
+                textS: AppLocalizations.of(context)!.singIn,
               ),
-              GlobalButton(key: GlobalKey(debugLabel: 'rtrrfdgfdg'),
+              GlobalButton(
+                key: GlobalKey(debugLabel: 'rtrrfdgfdg'),
                 text: _checkIsSingIn ? AppLocalizations.of(context)!.singIn : AppLocalizations.of(context)!.singUp,
                 onTap: () {
-
                   _checkIsSingIn
                       ? vm.login(_loginController.text, _passwordController.text)
                       : vm.registration(_loginController.text, _passwordController.text);
