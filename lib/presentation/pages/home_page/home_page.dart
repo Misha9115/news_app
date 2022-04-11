@@ -15,6 +15,7 @@ import 'package:news_paper/route_manager/models/news_page_data.dart';
 import 'package:news_paper/store/application/app_state.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
 }
@@ -28,10 +29,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ScrollController _singleChildScroll = ScrollController();
-  final ScrollController _scrollController = ScrollController();
+
   double offset = 0.0;
   bool _paginationLoader = false;
- late final FirebaseMessaging _messaging;
+  late final FirebaseMessaging _messaging;
 
   void registerNotification() async {
     await Firebase.initializeApp();
@@ -50,20 +51,18 @@ class _HomePageState extends State<HomePage> {
       print('User granted permission');
 
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-        print(
-            'Message title: ${message.notification?.title}, body: ${message.notification?.body}, data: ${message.data}');
-
+        print('Message title: ${message.notification?.title}, body: ${message.notification?.body}, data: ${message.data}');
       });
     } else {
       print('User declined or has not accepted permission');
     }
   }
+
   checkForInitialMessage() async {
     await Firebase.initializeApp();
-    RemoteMessage? initialMessage =
-    await FirebaseMessaging.instance.getInitialMessage();
-
+    RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
   }
+
   @override
   void initState() {
     registerNotification();
@@ -76,11 +75,11 @@ class _HomePageState extends State<HomePage> {
         dataTitle: message.data['title'],
         dataBody: message.data['body'],
       );
-
     });
 
     super.initState();
   }
+
   @override
   void dispose() {
     _singleChildScroll.dispose();
@@ -99,7 +98,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context, vm) {
         return MainLayout(
           bottomNavigationBar: true,
-          appBar: true,
+          appBar: false,
           body: vm.newsList.articles!.isEmpty
               ? Center(
                   child: Text(
@@ -131,92 +130,75 @@ class _HomePageState extends State<HomePage> {
         }
         return false;
       },
-      child: SingleChildScrollView(
+      child: CustomScrollView(
         controller: _singleChildScroll,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10.0, left: 15.0, right: 15.0),
-              child: CustomScrollView(
-                shrinkWrap: true,
-                controller: _scrollController,
-                slivers: [
-                  SliverGrid(
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, index) {
-                        return
+        slivers: <Widget>[
+          SliverAppBar(
+            backgroundColor: AppColors.grey3,
+            pinned: true,
+            snap: false,
+            floating: false,
+            expandedHeight: 100.0,
+            flexibleSpace: FlexibleSpaceBar(
+              title:  Text(
+                AppLocalizations.of(context)!.lNews,
+                style: const TextStyle(
+                  color: AppColors.white,
+                ),
+              ),
+              background: SizedBox(
 
-                        SizedBox(
-                            width: 106.0,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                  AppRoutes.newsPage,
-                                  arguments: NewsPageData(
-                                    news: vm.newsList.articles![index],
-                                  ),
-                                );
-                              },
-                              child: NewsCard(
-                                link: vm.newsList.articles![index].urlToImage!,
-                                titleNews: vm.newsList.articles![index].title!,
-                              ),
-                            ),
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.asset(
+                    'assets/news.jpg',
+                    fit: BoxFit.cover,
+                    color: vm.light? AppColors.grey :AppColors.grey2,
+                    colorBlendMode: BlendMode.modulate,
+                  )),
+            ),
+          ),
 
-                        );
-                      },
-                      childCount: vm.newsList.articles!.length,
-                    ),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 6.0,
-                      itemHeight: 170.0,
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Container(
-                      height: vm.paginationLoader ? 50.0 : 0.0,
-                      color: Colors.transparent,
-                      child: const Center(
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(AppColors.blue),
+          SliverGrid(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, index) {
+                return SizedBox(
+                  width: 106.0,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        AppRoutes.newsPage,
+                        arguments: NewsPageData(
+                          news: vm.newsList.articles![index],
                         ),
-                      ),
+                      );
+                    },
+                    child: NewsCard(
+                      link: vm.newsList.articles![index].urlToImage!,
+                      titleNews: vm.newsList.articles![index].title!,
                     ),
                   ),
-                ],
+                );
+              },
+              childCount: vm.newsList.articles!.length,
+            ),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+              crossAxisCount: 3,
+              crossAxisSpacing: 6.0,
+              itemHeight: 170.0,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              height: vm.paginationLoader ? 50.0 : 0.0,
+              color: Colors.transparent,
+              child: const Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.blue),
+                ),
               ),
             ),
-            const SizedBox(height: 15.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                  onTap: () {
-                    if (vm.page > 1) {
-                      vm.changePage(vm.page - 1);
-                    }
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.lPage,
-                    style: AppFonts.bottomBarTextStyle,
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    vm.changePage(vm.page + 1);
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.nPage,
-                    style: AppFonts.bottomBarTextStyle,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 15.0),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -13,8 +13,17 @@
   "nPage": "Next page",
   "fTitle": "Favorite",
 
-  "read":"Read more..",
-  "title":  "Bitcoin"
+  "read": "Read more..",
+  "title": "Bitcoin",
+
+  "home": "Home",
+  "search": "Search",
+
+  "lNews": "Latest news",
+
+  "sTitle": "Settings",
+  "dMode": "Dark Mode"
+
 
 
 

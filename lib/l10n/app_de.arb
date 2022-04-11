@@ -1,20 +1,26 @@
 {
 
   "loginPage": "This is just a normal string.",
-  "login": "login",
-  "password": "Password",
-  "singIn": "SingIn",
+  "login": "Anmeldung",
+  "password": "Passwort",
+  "singIn": "Anmelden",
   "singUp": "SingUp",
-  "cPassword": "Confirm password",
+  "cPassword": "Bestätige das Passwort",
 
-  "load": "loading...",
-  "news": "News",
-  "lPage": "Last page",
-  "nPage": "Next page",
-  "fTitle": "Favorite",
+  "load": "Wird geladen...",
+  "news": "Nachricht",
+  "lPage": "Letzte Seite",
+  "nPage": "Nächste Seite",
+  "fTitle": "Favoritin",
 
-  "read":"Read more..",
-  "title":  "Bitcoin"
+  "read":"Weiterlesen..",
+  "title":  "Bitcoin",
+
+   "home": "Heim",
+   "search": "Suche",
+   "lNews": "Neuesten Nachrichten",
+   "sTitle": "Einstellungen",
+   "dMode": "Dunkler Modus"
 
 
 

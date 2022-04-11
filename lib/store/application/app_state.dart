@@ -1,6 +1,8 @@
 import 'package:news_paper/store/fav/fav_epic.dart';
 import 'package:news_paper/store/fav/fav_reducer.dart';
 import 'package:news_paper/store/fav/fav_state.dart';
+import 'package:news_paper/store/language/language_reducer.dart';
+import 'package:news_paper/store/language/language_state.dart';
 import 'package:news_paper/store/loader/loader_reducer.dart';
 import 'package:news_paper/store/loader/loader_state.dart';
 import 'package:news_paper/store/login/login_epic.dart';
@@ -12,6 +14,8 @@ import 'package:news_paper/store/news/news_state.dart';
 import 'package:news_paper/store/search_news/search_news_epic.dart';
 import 'package:news_paper/store/search_news/search_news_reducer.dart';
 import 'package:news_paper/store/search_news/search_news_state.dart';
+import 'package:news_paper/store/settings/settings_reducer.dart';
+import 'package:news_paper/store/settings/settings_state.dart';
 import 'package:redux_epics/redux_epics.dart';
 
 class AppState {
@@ -20,6 +24,8 @@ class AppState {
   final FavState favState;
   final SearchNewsState searchNewsState;
   final LoginState loginState;
+  final SettingsState settingsState;
+  final LanguageState languageState;
 
   AppState({
     required this.newsState,
@@ -27,6 +33,8 @@ class AppState {
     required this.favState,
     required this.searchNewsState,
     required this.loginState,
+    required this.settingsState,
+    required this.languageState,
   });
 
   ///All states are initialized in the [initial] function.
@@ -37,6 +45,8 @@ class AppState {
       favState: FavState.initial(),
       searchNewsState: SearchNewsState.initial(),
       loginState: LoginState.initial(),
+      settingsState: SettingsState.initial(),
+      languageState: LanguageState.initial(),
     );
   }
 
@@ -47,6 +57,8 @@ class AppState {
       loginState: loginReducer(state.loginState, action),
       favState: favReducer(state.favState, action),
       newsState: mewsReducer(state.newsState, action),
+      settingsState:  settingsReducer(state.settingsState,action),
+      languageState:  languageReducer(state.languageState,action),
     );
   }
 

@@ -78,9 +78,10 @@ class _SearchPageState extends State<SearchPage> {
               onTap: () {
                 vm.getSearchNews(20, _myTextController.text);
               },
-              child: const Icon(
+              child:  Icon(
                 Icons.search,
                 size: 50,
+                color: vm.light? AppColors.white:AppColors.black,
               ),
             ),
             Padding(
@@ -91,7 +92,7 @@ class _SearchPageState extends State<SearchPage> {
                       child: Center(
                         child: Text(
                           AppLocalizations.of(context)!.load,
-                          style: AppFonts.loadingText,
+                          style:vm.light?AppFonts.loadingTextNight: AppFonts.loadingText,
                         ),
                       ),
                     )
@@ -153,7 +154,7 @@ class _SearchPageState extends State<SearchPage> {
                   },
                   child: Text(
                     AppLocalizations.of(context)!.lPage,
-                    style: AppFonts.bottomBarTextStyle,
+                    style: vm.light? AppFonts.bottomBarTextStyleNight :AppFonts.bottomBarTextStyle,
                   ),
                 ),
                 InkWell(
@@ -163,7 +164,7 @@ class _SearchPageState extends State<SearchPage> {
                   },
                   child: Text(
                     AppLocalizations.of(context)!.nPage,
-                    style: AppFonts.bottomBarTextStyle,
+                    style:vm.light? AppFonts.bottomBarTextStyleNight :AppFonts.bottomBarTextStyle,
                   ),
                 ),
               ],

@@ -5,4 +5,5 @@ class AppRoutes {
   static const String searchPage = '/searchPage';
   static const String loginPage = '/loginPage';
   static const String splashPage = '/splashPage';
+  static const String settingsPage = '/settingsPage';
 }

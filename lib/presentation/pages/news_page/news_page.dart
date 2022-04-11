@@ -51,9 +51,10 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
       },
       builder: (context, vm) {
         return Scaffold(
-          // backgroundColor: AppColors.grey,
+          backgroundColor: vm.light ? AppColors.grey : AppColors.white,
           appBar: AppBar(
             title: Text(AppLocalizations.of(context)!.title.toString()),
+            backgroundColor: vm.light ? AppColors.grey : null,
           ),
           body: ListView(
             children: [
@@ -102,12 +103,13 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       height: 46.0,
-                      decoration: const BoxDecoration(
-                          color: AppColors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40.0),
-                            topRight: Radius.circular(40.0),
-                          )),
+                      decoration: BoxDecoration(
+                        color: vm.light ? AppColors.grey : AppColors.white,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(40.0),
+                          topRight: Radius.circular(40.0),
+                        ),
+                      ),
                       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                       child: Column(
                         children: [
@@ -156,21 +158,24 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
                 ]),
               ),
               Container(
-                decoration: const BoxDecoration(
-                  color: AppColors.white,
+                decoration: BoxDecoration(
+                  color: vm.light ? AppColors.grey : AppColors.white,
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                   children: [
                     Text(
                       widget.news.title!,
-                      style: AppFonts.cardText,
+                      style:vm.light?AppFonts.cardTextNight: AppFonts.cardText,
                       maxLines: 3,
                     ),
                     const SizedBox(
                       height: 10.0,
                     ),
-                    Text(widget.news.description!)
+                    Text(
+                      widget.news.description!,
+                      style: TextStyle(color: vm.light ? AppColors.white.withOpacity(0.8) : AppColors.black),
+                    )
                   ],
                 ),
               )

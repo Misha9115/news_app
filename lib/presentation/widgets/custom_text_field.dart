@@ -42,7 +42,7 @@ class AppTextField extends StatelessWidget {
             height: 50.0,
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             decoration: BoxDecoration(
-              color: AppColors.border.withOpacity(0.08),
+              color: AppColors.border.withOpacity(0.5),
               border: Border.all(
                 color: AppColors.border.withOpacity(0.1),
               ),
