@@ -37,7 +37,6 @@ class AppState {
     required this.languageState,
   });
 
-  ///All states are initialized in the [initial] function.
   factory AppState.initial() {
     return AppState(
       newsState: NewsState.initial(),
@@ -57,12 +56,11 @@ class AppState {
       loginState: loginReducer(state.loginState, action),
       favState: favReducer(state.favState, action),
       newsState: mewsReducer(state.newsState, action),
-      settingsState:  settingsReducer(state.settingsState,action),
-      languageState:  languageReducer(state.languageState,action),
+      settingsState: settingsReducer(state.settingsState, action),
+      languageState: languageReducer(state.languageState, action),
     );
   }
 
-  ///In [getAppEpic], call the main epic.
   static final getAppEpic = combineEpics<AppState>([
     NewsEpic.indexEpic,
     SearchNewsEpic.indexEpic,

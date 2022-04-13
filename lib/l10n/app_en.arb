@@ -22,7 +22,13 @@
   "lNews": "Latest news",
 
   "sTitle": "Settings",
-  "dMode": "Dark Mode"
+  "dMode": "Dark Mode",
+  "cFontSize": "Change font size :",
+  "aUs": "About Us",
+  "nApp": "News App",
+  "wAw": "Who are we",
+  "wAwD": "What are we doing"
+
 
 
 

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:news_paper/presentation/layouts/main_layouts.dart';
 import 'package:news_paper/presentation/pages/search_page/search_page_vm.dart';
@@ -10,10 +11,9 @@ import 'package:news_paper/presentation/widgets/silver_grid_delegate.dart';
 import 'package:news_paper/res/app_consts.dart';
 import 'package:news_paper/res/app_fonts.dart';
 import 'package:news_paper/res/app_styles.dart';
-import 'package:news_paper/route_manager/routes.dart';
 import 'package:news_paper/route_manager/models/news_page_data.dart';
+import 'package:news_paper/route_manager/routes.dart';
 import 'package:news_paper/store/application/app_state.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -78,10 +78,10 @@ class _SearchPageState extends State<SearchPage> {
               onTap: () {
                 vm.getSearchNews(20, _myTextController.text);
               },
-              child:  Icon(
+              child: Icon(
                 Icons.search,
                 size: 50,
-                color: vm.light? AppColors.white:AppColors.black,
+                color: vm.light ? AppColors.white : AppColors.black,
               ),
             ),
             Padding(
@@ -92,7 +92,13 @@ class _SearchPageState extends State<SearchPage> {
                       child: Center(
                         child: Text(
                           AppLocalizations.of(context)!.load,
-                          style:vm.light?AppFonts.loadingTextNight: AppFonts.loadingText,
+                          style: TextStyle(
+                            fontFamily: fontFamily,
+                            fontSize: 17.0 * vm.fontSize,
+                            height: 1.3,
+                            fontWeight: FontWeight.w400,
+                            color: vm.light ? AppColors.white.withOpacity(0.8) : AppColors.black,
+                          ),
                         ),
                       ),
                     )
@@ -114,7 +120,7 @@ class _SearchPageState extends State<SearchPage> {
                                   },
                                   child: NewsCard(
                                     link: vm.newsList[index].urlToImage ?? imageURL,
-                                    titleNews: vm.newsList[index].title ?? '',
+                                    titleNews: vm.newsList[index].title ?? emptyString,
                                   ),
                                 ),
                               );
@@ -154,7 +160,7 @@ class _SearchPageState extends State<SearchPage> {
                   },
                   child: Text(
                     AppLocalizations.of(context)!.lPage,
-                    style: vm.light? AppFonts.bottomBarTextStyleNight :AppFonts.bottomBarTextStyle,
+                    style: vm.light ? AppFonts.bottomBarTextStyleNight : AppFonts.bottomBarTextStyle,
                   ),
                 ),
                 InkWell(
@@ -164,7 +170,13 @@ class _SearchPageState extends State<SearchPage> {
                   },
                   child: Text(
                     AppLocalizations.of(context)!.nPage,
-                    style:vm.light? AppFonts.bottomBarTextStyleNight :AppFonts.bottomBarTextStyle,
+                    style: TextStyle(
+                      fontFamily: fontFamily,
+                      fontSize: 10.0 * vm.fontSize,
+                      height: 1.2,
+                      fontWeight: FontWeight.w500,
+                      color: vm.light ? AppColors.white.withOpacity(0.8) : AppColors.mainTextColor,
+                    ),
                   ),
                 ),
               ],

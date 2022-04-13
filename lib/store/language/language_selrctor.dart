@@ -8,7 +8,10 @@ abstract class LanguageSelectors {
   static Locale getLocale(Store<AppState> store) {
     return store.state.languageState.language;
   }
-  static void Function(String locale,) changeLanguage(Store<AppState> store) {
+
+  static void Function(
+    String locale,
+  ) changeLanguage(Store<AppState> store) {
     return (String locale) => store.dispatch(ChangeLanguage(locale: locale));
   }
 }

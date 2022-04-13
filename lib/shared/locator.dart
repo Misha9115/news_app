@@ -10,9 +10,6 @@ class CustomLocator {
   static void initLocator() {
     getIt.registerSingleton<RestApiNews>(RestApiNews(NetworkService.instance.dio));
     getIt.registerSingleton(NewsRepository());
-//    getIt.registerSingleton(AnalyticService());
-    //  getIt.registerSingleton(() => AnalyticService());
-    //   locator.registerLazySingleton(() => AnalyticsService());
   }
 }
 

@@ -7,3 +7,11 @@ class ChangeSettingsTheme extends BaseAction {
     required this.lightTheme,
   }) : super(type: 'ChangeSettingsTheme');
 }
+
+class ChangeFontSize extends BaseAction {
+  final double fontSize;
+
+  ChangeFontSize({
+    required this.fontSize,
+  }) : super(type: 'ChangeFontSize');
+}

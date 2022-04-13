@@ -167,14 +167,14 @@ class _LoginPageState extends State<LoginPage> {
                   vm.registrationWithGoogle();
                 },
                 hintTextStyle: AppFonts.buttonLogReg,
-                image: 'assets/google_logo.png',
+                image: googleLogo,
                 padding: 20.0,
                 onTap: _checkIsSingIn,
                 textR: AppLocalizations.of(context)!.singUp,
                 textS: AppLocalizations.of(context)!.singIn,
               ),
               GlobalButton(
-                key: GlobalKey(debugLabel: 'rtrrfdgfdg'),
+                key: GlobalKey(debugLabel: keyButton),
                 text: _checkIsSingIn ? AppLocalizations.of(context)!.singIn : AppLocalizations.of(context)!.singUp,
                 onTap: () {
                   _checkIsSingIn

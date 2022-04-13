@@ -20,7 +20,13 @@
    "search": "Suche",
    "lNews": "Neuesten Nachrichten",
    "sTitle": "Einstellungen",
-   "dMode": "Dunkler Modus"
+   "dMode": "Dunkler Modus",
+   "cFontSize": "Schriftgröße ändern :",
+     "aUs": "About Us",
+     "nApp": "News App",
+     "wAw": "Who are we",
+     "wAwD": "What are we doing"
+
 
 
 

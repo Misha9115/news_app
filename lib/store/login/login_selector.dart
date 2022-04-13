@@ -15,7 +15,7 @@ abstract class LoginSelectors {
     return (String email, String password) => store.dispatch(LoginAction(email: email, password: password));
   }
 
-  static void Function( ) registrationWithGoogle(Store<AppState> store) {
+  static void Function() registrationWithGoogle(Store<AppState> store) {
     return () => store.dispatch(RegistrationWithGoogleAction());
   }
 

@@ -6,7 +6,16 @@ abstract class SettingsSelectors {
   static bool getTheme(Store<AppState> store) {
     return store.state.settingsState.lightTheme;
   }
+
+  static double getFontSize(Store<AppState> store) {
+    return store.state.settingsState.fontSize;
+  }
+
   static void Function(bool lightTheme) changeTheme(Store<AppState> store) {
-    return (bool lightTheme) => store.dispatch(ChangeSettingsTheme(lightTheme:  lightTheme));
+    return (bool lightTheme) => store.dispatch(ChangeSettingsTheme(lightTheme: lightTheme));
+  }
+
+  static void Function(double fontSize) changeFontSize(Store<AppState> store) {
+    return (double fontSize) => store.dispatch(ChangeFontSize(fontSize: fontSize));
   }
 }

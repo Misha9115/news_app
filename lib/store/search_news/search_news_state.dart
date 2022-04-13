@@ -1,6 +1,5 @@
 import 'package:news_paper/domain/entity/articles/articles_dto.dart';
 
-
 class SearchNewsState {
   final List<ArticlesDto> searchNewsListDto;
   final int pageNumber;
@@ -23,6 +22,4 @@ class SearchNewsState {
       pageNumber: pageNumber ?? this.pageNumber,
     );
   }
-
-
 }

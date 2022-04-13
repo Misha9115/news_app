@@ -13,16 +13,17 @@ class HomePageVM {
   final void Function(int page) changePage;
   final int page;
   final bool light;
+  final double fontSize;
 
-  const HomePageVM({
-    required this.getBooks,
-    required this.newsList,
-    required this.paginationLoader,
-    required this.getPagination,
-    required this.changePage,
-    required this.page,
-    required this.light,
-  });
+  const HomePageVM(
+      {required this.getBooks,
+      required this.newsList,
+      required this.paginationLoader,
+      required this.getPagination,
+      required this.changePage,
+      required this.page,
+      required this.light,
+      required this.fontSize});
 
   static HomePageVM init(Store<AppState> store) {
     return HomePageVM(
@@ -33,6 +34,7 @@ class HomePageVM {
       changePage: NewsSelectors.changePageAction(store),
       page: NewsSelectors.getPages(store),
       light: SettingsSelectors.getTheme(store),
+      fontSize: SettingsSelectors.getFontSize(store),
     );
   }
 }

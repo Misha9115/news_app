@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:news_paper/presentation/layouts/main_layouts_vm.dart';
+import 'package:news_paper/res/app_consts.dart';
 import 'package:news_paper/res/app_styles.dart';
 import 'package:news_paper/route_manager/routes.dart';
 import 'package:news_paper/store/application/app_state.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 
 class MainLayout extends StatefulWidget {
   int selectedIndex = 0;
@@ -34,47 +34,55 @@ class _MainLayoutState extends State<MainLayout> {
         converter: MainLayoutsVM.init,
         builder: (context, vm) {
           return Scaffold(
-            backgroundColor: vm.lightTheme?AppColors.grey:AppColors.white,
+            backgroundColor: vm.lightTheme ? AppColors.grey : AppColors.white,
             body: widget.body,
             appBar: widget.appBar
                 ? AppBar(
-              backgroundColor:vm.lightTheme? AppColors.grey:null,
-                    title: Text(widget.title),
+                    backgroundColor: vm.lightTheme ? AppColors.grey : null,
+                    title: Text(
+                      widget.title,
+                      style: TextStyle(
+                        fontFamily: fontFamily,
+                        fontSize: 20.0 * vm.fontSize,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.white,
+                      ),
+                    ),
                   )
                 : null,
             bottomNavigationBar: widget.bottomNavigationBar
                 ? BottomNavigationBar(
-                    items:  <BottomNavigationBarItem>[
+                    items: <BottomNavigationBarItem>[
                       BottomNavigationBarItem(
                         icon: const Icon(Icons.home),
-                       label:  AppLocalizations.of(context)!.home,
+                        label: AppLocalizations.of(context)!.home,
                         // label: 'Home',
-                        backgroundColor:vm.lightTheme? AppColors.grey:AppColors.white,
+                        backgroundColor: vm.lightTheme ? AppColors.grey : AppColors.white,
                       ),
                       BottomNavigationBarItem(
                         icon: const Icon(Icons.favorite),
                         label: AppLocalizations.of(context)!.fTitle,
-                        backgroundColor: vm.lightTheme? AppColors.grey:AppColors.white,
+                        backgroundColor: vm.lightTheme ? AppColors.grey : AppColors.white,
                       ),
                       BottomNavigationBarItem(
                         icon: const Icon(Icons.search),
-                        label:  AppLocalizations.of(context)!.search,
-                        backgroundColor: vm.lightTheme? AppColors.grey:AppColors.white,
+                        label: AppLocalizations.of(context)!.search,
+                        backgroundColor: vm.lightTheme ? AppColors.grey : AppColors.white,
                       ),
                       BottomNavigationBarItem(
                         icon: const Icon(Icons.settings),
-                        label:  AppLocalizations.of(context)!.sTitle,
-                        backgroundColor:vm.lightTheme? AppColors.grey:AppColors.white,
+                        label: AppLocalizations.of(context)!.sTitle,
+                        backgroundColor: vm.lightTheme ? AppColors.grey : AppColors.white,
                       ),
                     ],
-
-
                     showUnselectedLabels: true,
                     currentIndex: widget.selectedIndex,
                     selectedItemColor: Colors.amber[800],
                     onTap: _onItemTapped,
+                    selectedFontSize: 13.0 * vm.fontSize,
                     unselectedItemColor: Colors.grey,
-                    unselectedLabelStyle: const TextStyle(
+                    unselectedLabelStyle: TextStyle(
+                      fontSize: 13.0 * vm.fontSize,
                       color: Colors.grey,
                     ),
                   )

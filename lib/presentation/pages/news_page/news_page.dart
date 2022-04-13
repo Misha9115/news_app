@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:news_paper/domain/entity/articles/articles_dto.dart';
 import 'package:news_paper/presentation/pages/news_page/news_page_vm.dart';
 import 'package:news_paper/res/app_consts.dart';
-import 'package:news_paper/res/app_fonts.dart';
 import 'package:news_paper/res/app_styles.dart';
 import 'package:news_paper/store/application/app_state.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -53,109 +52,137 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
         return Scaffold(
           backgroundColor: vm.light ? AppColors.grey : AppColors.white,
           appBar: AppBar(
-            title: Text(AppLocalizations.of(context)!.title.toString()),
+            title: Text(
+              AppLocalizations.of(context)!.title,
+              style: TextStyle(
+                fontFamily: fontFamily,
+                fontSize: 20.0 * vm.fontSize,
+                fontWeight: FontWeight.w700,
+                color: AppColors.white,
+              ),
+            ),
             backgroundColor: vm.light ? AppColors.grey : null,
           ),
           body: ListView(
             children: [
               SizedBox(
                 height: 300.0,
-                child: Stack(children: [
-                  SizedBox(
-                    height: 300,
-                    width: MediaQuery.of(context).size.width,
-                    child: FadeInImage.assetNetwork(
-                      placeholder: logo,
-                      image: widget.news.urlToImage ?? imageURL,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      margin: const EdgeInsets.all(7.0),
-                      padding: const EdgeInsets.all(3.0),
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(7.0)),
-                        color: AppColors.white.withOpacity(0.7),
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      height: 300,
+                      width: MediaQuery.of(context).size.width,
+                      child: FadeInImage.assetNetwork(
+                        placeholder: logo,
+                        image: widget.news.urlToImage ?? imageURL,
+                        fit: BoxFit.cover,
                       ),
-                      child: Text(
-                        DateFormat(dataTimeFormat).format(
-                          DateTime.parse(widget.news.publishedAt!),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        margin: const EdgeInsets.all(7.0),
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(Radius.circular(7.0)),
+                          color: AppColors.white.withOpacity(0.7),
                         ),
-                        style: AppFonts.dataTime,
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 7.0),
-                      padding: const EdgeInsets.all(3.0),
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(7.0)),
-                        color: AppColors.white.withOpacity(0.7),
-                      ),
-                      child: Text(widget.news.author ?? emptyString),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: 46.0,
-                      decoration: BoxDecoration(
-                        color: vm.light ? AppColors.grey : AppColors.white,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(40.0),
-                          topRight: Radius.circular(40.0),
-                        ),
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                      child: Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              AnimatedBuilder(
-                                  animation: _colorTween,
-                                  builder: (context, child) => InkWell(
-                                        onTap: () {
-                                          if (_animationController.status == AnimationStatus.completed) {
-                                            _animationController.reverse();
-                                          } else {
-                                            _animationController.forward();
-                                          }
-                                          if (_chekFav(widget.news.url!, vm)) {
-                                            vm.deleteFav(widget.news);
-                                          } else {
-                                            vm.addFav(widget.news);
-                                            vm.saveToDataBase(widget.news);
-                                          }
-                                        },
-                                        child: Icon(
-                                          Icons.favorite,
-                                          color: _colorTween.value,
-                                          size: 24.0,
-                                          semanticLabel: 'Text to announce in accessibility modes',
-                                        ),
-                                      )),
-                              InkWell(
-                                onTap: () {
-                                  _launchURL(widget.news.url);
-                                },
-                                child: Text(
-                                  AppLocalizations.of(context)!.read,
-                                  style: AppFonts.readMore,
-                                ),
-                              ),
-                            ],
+                        child: Text(
+                          DateFormat(dataTimeFormat).format(
+                            DateTime.parse(widget.news.publishedAt!),
                           ),
-                        ],
+                          style: TextStyle(
+                            fontFamily: fontFamily,
+                            fontSize: 20.0 * vm.fontSize,
+                            height: 1.3,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
-                  )
-                ]),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 65.0, horizontal: 7.0),
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(Radius.circular(7.0)),
+                          color: AppColors.white.withOpacity(0.7),
+                        ),
+                        child: Text(widget.news.author ?? emptyString,
+                            style: TextStyle(
+                              fontFamily: fontFamily,
+                              fontSize: 10.0 * vm.fontSize,
+                              height: 1.2,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.black.withOpacity(0.8),
+                            )),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 59.0,
+                        decoration: BoxDecoration(
+                          color: vm.light ? AppColors.grey : AppColors.white,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(40.0),
+                            topRight: Radius.circular(40.0),
+                          ),
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                AnimatedBuilder(
+                                    animation: _colorTween,
+                                    builder: (context, child) => InkWell(
+                                          onTap: () {
+                                            if (_animationController.status == AnimationStatus.completed) {
+                                              _animationController.reverse();
+                                            } else {
+                                              _animationController.forward();
+                                            }
+                                            if (_chekFav(widget.news.url!, vm)) {
+                                              vm.deleteFav(widget.news);
+                                            } else {
+                                              vm.addFav(widget.news);
+                                              vm.saveToDataBase(widget.news);
+                                            }
+                                          },
+                                          child: Icon(
+                                            Icons.favorite,
+                                            color: _colorTween.value,
+                                            size: 24.0,
+                                            semanticLabel: 'Text to announce in accessibility modes',
+                                          ),
+                                        )),
+                                InkWell(
+                                  onTap: () {
+                                    _launchURL(widget.news.url);
+                                  },
+                                  child: Text(
+                                    AppLocalizations.of(context)!.read,
+                                    style: TextStyle(
+                                      fontFamily: fontFamily,
+                                      fontSize: 20.0 * vm.fontSize,
+                                      height: 1.3,
+                                      fontWeight: FontWeight.w300,
+                                      color: AppColors.blue,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
               Container(
                 decoration: BoxDecoration(
@@ -166,7 +193,12 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
                   children: [
                     Text(
                       widget.news.title!,
-                      style:vm.light?AppFonts.cardTextNight: AppFonts.cardText,
+                      style: TextStyle(
+                        fontFamily: fontFamily,
+                        fontSize: 20.0 * vm.fontSize,
+                        fontWeight: FontWeight.w700,
+                        color: vm.light ? AppColors.white.withOpacity(0.8) : AppColors.black,
+                      ),
                       maxLines: 3,
                     ),
                     const SizedBox(
@@ -174,7 +206,12 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
                     ),
                     Text(
                       widget.news.description!,
-                      style: TextStyle(color: vm.light ? AppColors.white.withOpacity(0.8) : AppColors.black),
+                      style: TextStyle(
+                          fontFamily: fontFamily,
+                          fontSize: 17.0 * vm.fontSize,
+                          height: 1.3,
+                          fontWeight: FontWeight.w400,
+                          color: vm.light ? AppColors.white.withOpacity(0.8) : AppColors.black),
                     )
                   ],
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:news_paper/res/app_consts.dart';
 import 'package:news_paper/res/app_styles.dart';
 import 'package:news_paper/route_manager/routes.dart';
 import 'package:rive/rive.dart';
@@ -21,11 +22,11 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    rootBundle.load('assets/sign-uplogin-animation.riv').then(
+    rootBundle.load(riv).then(
       (data) async {
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
-        artboard.addController(_controller = SimpleAnimation('Appearing'));
+        artboard.addController(_controller = SimpleAnimation(ap));
         setState(() => _riveArtboard = artboard);
       },
     );

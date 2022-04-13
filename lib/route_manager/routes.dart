@@ -6,4 +6,5 @@ class AppRoutes {
   static const String loginPage = '/loginPage';
   static const String splashPage = '/splashPage';
   static const String settingsPage = '/settingsPage';
+  static const String aboutUs = '/aboutUs';
 }

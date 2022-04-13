@@ -20,7 +20,6 @@ class LoginState {
       isLogin: isLogin ?? this.isLogin,
       user: user ?? this.user,
       userId: userId ?? this.userId,
-
     );
   }
 }

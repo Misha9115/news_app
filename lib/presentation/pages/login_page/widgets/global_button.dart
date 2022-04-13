@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:news_paper/res/app_fonts.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:news_paper/presentation/pages/login_page/login_page_vm.dart';
 import 'package:news_paper/res/app_styles.dart';
+import 'package:news_paper/store/application/app_state.dart';
 
 class GlobalButton extends StatefulWidget {
   final String text;
@@ -20,37 +22,46 @@ class GlobalButton extends StatefulWidget {
 
 class _GlobalButtonState extends State<GlobalButton> {
   bool selected = false;
+
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap:(){
-
-        setState(() {
-          selected = !selected;
+    return StoreConnector<AppState, LoginPageVM>(
+        converter: LoginPageVM.init,
+        builder: (context, vm) {
+          return InkWell(
+            onTap: () {
+              setState(() {
+                selected = !selected;
+              });
+              Future.delayed(const Duration(milliseconds: 200), () {
+                widget.onTap();
+                setState(() {
+                  selected = !selected;
+                });
+              });
+            }, // onTap,
+            child: AnimatedContainer(
+              height: selected ? 40 : 47.0,
+              margin: selected ? const EdgeInsets.symmetric(horizontal: 28.0) : widget.margin,
+              decoration: BoxDecoration(
+                boxShadow: AppShadows.shadowsFile(AppColors.core),
+                gradient: AppGradient.globalButtonGradient,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              duration: const Duration(milliseconds: 200),
+              child: Center(
+                child: Text(
+                  widget.text,
+                  style: TextStyle(
+                    fontFamily: 'SFProText',
+                    fontSize: 24.0 * vm.fontSize,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.white,
+                  ),
+                ),
+              ),
+            ),
+          );
         });
-        Future.delayed(const Duration(milliseconds: 200), () {
-         widget.onTap();
-          setState(() {
-            selected = !selected;
-          });
-        });
-      },// onTap,
-      child: AnimatedContainer(
-        height: selected ? 40:47.0,
-        margin: selected ?const EdgeInsets.symmetric(horizontal: 28.0): widget.margin,
-        decoration: BoxDecoration(
-          boxShadow: AppShadows.shadowsFile(AppColors.core),
-          gradient: AppGradient.globalButtonGradient,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        duration:  const Duration(milliseconds: 200),
-        child: Center(
-          child: Text(
-            widget.text,
-            style: AppFonts.globalButton,
-          ),
-        ),
-      ),
-    );
   }
 }

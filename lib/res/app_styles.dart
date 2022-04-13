@@ -13,8 +13,8 @@ class AppColors {
   static const Color pinkishGrey = Color(0xFFbdbdbd);
   static const Color marigold = Color(0xFFffbd00);
   static const Color grey = Color(0xFF494949);
-  static const Color grey2 = Color.fromRGBO(137, 137, 137,1);
-  static const Color grey3 =Color.fromARGB(100, 102, 102, 153);
+  static const Color grey2 = Color.fromRGBO(137, 137, 137, 1);
+  static const Color grey3 = Color.fromARGB(100, 102, 102, 153);
   static const Color core = Color(0xFFc79300);
   static const Color wheat = Color(0xFFffde81);
 }
@@ -43,6 +43,7 @@ class AppShadows {
       ),
     ];
   }
+
   static List<BoxShadow> shadowsTextField(Color color) {
     return [
       BoxShadow(

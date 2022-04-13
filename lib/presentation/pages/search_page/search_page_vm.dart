@@ -14,6 +14,7 @@ class SearchPageVM {
   final void Function(int pageSize, String searchReqest) pagination;
   final bool paginationLoader;
   final bool light;
+  final double fontSize;
 
   const SearchPageVM({
     required this.changePage,
@@ -24,6 +25,7 @@ class SearchPageVM {
     required this.pagination,
     required this.paginationLoader,
     required this.light,
+    required this.fontSize,
   });
 
   static SearchPageVM init(Store<AppState> store) {
@@ -36,6 +38,7 @@ class SearchPageVM {
       pagination: SearchNewsSelectors.paginationSearchNews(store),
       paginationLoader: LoaderSelectors.getPaginationLoader(store),
       light: SettingsSelectors.getTheme(store),
+      fontSize: SettingsSelectors.getFontSize(store),
     );
   }
 }

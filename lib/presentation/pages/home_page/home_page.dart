@@ -1,20 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:news_paper/domain/entity/push_notification.dart';
 import 'package:news_paper/presentation/layouts/main_layouts.dart';
 import 'package:news_paper/presentation/pages/home_page/home_page_vm.dart';
 import 'package:news_paper/presentation/widgets/news_card.dart';
 import 'package:news_paper/presentation/widgets/silver_grid_delegate.dart';
-import 'package:news_paper/res/app_fonts.dart';
+import 'package:news_paper/res/app_consts.dart';
 import 'package:news_paper/res/app_styles.dart';
-import 'package:news_paper/route_manager/routes.dart';
 import 'package:news_paper/route_manager/models/news_page_data.dart';
+import 'package:news_paper/route_manager/routes.dart';
 import 'package:news_paper/store/application/app_state.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
@@ -103,7 +103,13 @@ class _HomePageState extends State<HomePage> {
               ? Center(
                   child: Text(
                     AppLocalizations.of(context)!.load,
-                    style: AppFonts.loadingText,
+                    style: TextStyle(
+                      fontFamily: fontFamily,
+                      fontSize: 17.0 * vm.fontSize,
+                      height: 1.3,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.mainBlack,
+                    ),
                   ),
                 )
               : loadingBooks(vm),
@@ -140,24 +146,23 @@ class _HomePageState extends State<HomePage> {
             floating: false,
             expandedHeight: 100.0,
             flexibleSpace: FlexibleSpaceBar(
-              title:  Text(
+              title: Text(
                 AppLocalizations.of(context)!.lNews,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.white,
+                  fontSize: 17 * vm.fontSize,
                 ),
               ),
               background: SizedBox(
-
                   width: MediaQuery.of(context).size.width,
                   child: Image.asset(
-                    'assets/news.jpg',
+                    news,
                     fit: BoxFit.cover,
-                    color: vm.light? AppColors.grey :AppColors.grey2,
+                    color: vm.light ? AppColors.grey : AppColors.grey2,
                     colorBlendMode: BlendMode.modulate,
                   )),
             ),
           ),
-
           SliverGrid(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, index) {

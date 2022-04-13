@@ -1,9 +1,9 @@
 import 'package:news_paper/domain/entity/news_list/news_list_dto.dart';
 import 'package:news_paper/network/news_repository.dart';
+import 'package:news_paper/shared/locator.dart';
 import 'package:news_paper/store/application/app_state.dart';
 import 'package:news_paper/store/loader/loader_actions.dart';
 import 'package:news_paper/store/news/news_actions.dart';
-import 'package:news_paper/shared/locator.dart';
 import 'package:redux_epics/redux_epics.dart';
 import 'package:rxdart/rxdart.dart';
 

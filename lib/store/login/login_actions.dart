@@ -18,6 +18,7 @@ class SaveUserAction extends BaseAction {
     required this.user,
   }) : super(type: 'SaveUserAction');
 }
+
 class SaveUserWIthGoogleAction extends BaseAction {
   String user;
 
@@ -25,6 +26,7 @@ class SaveUserWIthGoogleAction extends BaseAction {
     required this.user,
   }) : super(type: 'SaveUserAction');
 }
+
 class RegistrationAction extends BaseAction {
   final String email;
   final String password;

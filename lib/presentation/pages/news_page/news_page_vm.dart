@@ -10,6 +10,7 @@ class NewsPageVM {
   final void Function(ArticlesDto news) deleteFav;
   final void Function(ArticlesDto news) saveToDataBase;
   final bool light;
+  final double fontSize;
 
   const NewsPageVM({
     required this.articlesDto,
@@ -17,6 +18,7 @@ class NewsPageVM {
     required this.deleteFav,
     required this.saveToDataBase,
     required this.light,
+    required this.fontSize,
   });
 
   static NewsPageVM init(Store<AppState> store) {
@@ -26,6 +28,7 @@ class NewsPageVM {
       articlesDto: FavSelectors.getFav(store),
       saveToDataBase: FavSelectors.saveToDataBase(store),
       light: SettingsSelectors.getTheme(store),
+      fontSize: SettingsSelectors.getFontSize(store),
     );
   }
 }
