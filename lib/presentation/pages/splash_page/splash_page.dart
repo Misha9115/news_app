@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -15,7 +17,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   bool get isPlaying => _controller?.isActive ?? false;
-
+  late Timer _timer;
   Artboard? _riveArtboard;
   RiveAnimationController? _controller;
 
@@ -30,13 +32,22 @@ class _SplashPageState extends State<SplashPage> {
         setState(() => _riveArtboard = artboard);
       },
     );
-    Future.delayed(const Duration(seconds: 5), () {
+    _timer =  Timer(const Duration(seconds: 5), () {
       Navigator.of(context).pushNamed(
         AppRoutes.loginPage,
       );
     });
+    // Future.delayed(const Duration(seconds: 5), () {
+    //   Navigator.of(context).pushNamed(
+    //     AppRoutes.loginPage,
+    //   );
+    // });
   }
-
+  @override
+  void dispose() {
+    super.dispose();
+    _timer.cancel();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -174,6 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                 textS: AppLocalizations.of(context)!.singIn,
               ),
               GlobalButton(
+                fontSize: vm.fontSize,
                 key: GlobalKey(debugLabel: keyButton),
                 text: _checkIsSingIn ? AppLocalizations.of(context)!.singIn : AppLocalizations.of(context)!.singUp,
                 onTap: () {

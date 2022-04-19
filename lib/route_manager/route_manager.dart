@@ -7,6 +7,7 @@ import 'package:news_paper/presentation/pages/search_page/search_page.dart';
 import 'package:news_paper/presentation/pages/settings_page/pages/about_us.dart';
 import 'package:news_paper/presentation/pages/settings_page/settings_page.dart';
 import 'package:news_paper/presentation/pages/splash_page/splash_page.dart';
+import 'package:news_paper/route_manager/models/about_us_page_data.dart';
 import 'package:news_paper/route_manager/models/news_page_data.dart';
 import 'package:news_paper/route_manager/routes.dart';
 
@@ -61,7 +62,10 @@ class RouteManager {
       case AppRoutes.aboutUs:
         return _defaultRoute(
           settings: settings,
-          page: const AboutUs(),
+          page:  AboutUs(
+            fontSize: (settings.arguments as AboutUsPageData).fontSize,
+            light:  (settings.arguments as AboutUsPageData).light,
+          ),
         );
       default:
         return _defaultRoute(

@@ -81,6 +81,8 @@ class _FavPageState extends State<FavPage> {
                             child: NewsCard(
                               link: vm.articlesDto[index].urlToImage!,
                               titleNews: vm.articlesDto[index].title!,
+                              light: vm.light,
+                              fontSize: vm.fontSize,
                             ),
                           ),
                         );

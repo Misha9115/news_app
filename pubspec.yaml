@@ -34,6 +34,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_test:
+    sdk: flutter
 
   intl: ^0.17.0
 
@@ -74,11 +76,6 @@ dependency_overrides:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-
-
-
-
 
   retrofit_generator: ^4.0.1
   build_runner: ^2.1.6

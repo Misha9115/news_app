@@ -17,6 +17,5 @@ SettingsState _changeThemeAction(SettingsState state, ChangeSettingsTheme action
 
 SettingsState _changeFontSizeAction(SettingsState state, ChangeFontSize action) {
   AppFonts.size = action.fontSize;
-  print(AppFonts.size);
   return state.copyWith(fontSize: action.fontSize);
 }

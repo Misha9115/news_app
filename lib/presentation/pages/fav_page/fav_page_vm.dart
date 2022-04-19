@@ -3,6 +3,7 @@ import 'package:news_paper/domain/entity/news_list/news_list_dto.dart';
 import 'package:news_paper/store/application/app_state.dart';
 import 'package:news_paper/store/fav/fav_selectors.dart';
 import 'package:news_paper/store/news/news_selector.dart';
+import 'package:news_paper/store/settings/settings_selector.dart';
 import 'package:redux/redux.dart';
 
 class FavPageVM {
@@ -11,6 +12,8 @@ class FavPageVM {
   final void Function(ArticlesDto news) addFav;
   final void Function(ArticlesDto news) deleteFav;
   final void Function() getDataFromDataBase;
+  final bool light;
+  final double fontSize;
 
   const FavPageVM({
     required this.newsList,
@@ -18,6 +21,8 @@ class FavPageVM {
     required this.addFav,
     required this.deleteFav,
     required this.getDataFromDataBase,
+    required this.light,
+    required this.fontSize,
   });
 
   static FavPageVM init(Store<AppState> store) {
@@ -27,6 +32,8 @@ class FavPageVM {
       deleteFav: FavSelectors.deleteF(store),
       articlesDto: FavSelectors.getFav(store),
       getDataFromDataBase: FavSelectors.getData(store),
+      light: SettingsSelectors.getTheme(store),
+      fontSize: SettingsSelectors.getFontSize(store),
     );
   }
 }

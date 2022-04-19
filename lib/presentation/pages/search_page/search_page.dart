@@ -121,6 +121,8 @@ class _SearchPageState extends State<SearchPage> {
                                   child: NewsCard(
                                     link: vm.newsList[index].urlToImage ?? imageURL,
                                     titleNews: vm.newsList[index].title ?? emptyString,
+                                    light: vm.light,
+                                    fontSize: vm.fontSize,
                                   ),
                                 ),
                               );

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -180,6 +182,8 @@ class _HomePageState extends State<HomePage> {
                     child: NewsCard(
                       link: vm.newsList.articles![index].urlToImage!,
                       titleNews: vm.newsList.articles![index].title!,
+                      fontSize: vm.fontSize,
+                      light: vm.light,
                     ),
                   ),
                 );
