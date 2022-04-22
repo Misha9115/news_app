@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:news_paper/presentation/pages/login_page/login_page_vm.dart';
 import 'package:news_paper/res/app_styles.dart';
-import 'package:news_paper/store/application/app_state.dart';
 
 class GlobalButton extends StatefulWidget {
   final String text;

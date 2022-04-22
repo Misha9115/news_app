@@ -104,6 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: InkWell(
+                          key: const Key(keysUpButton),
                           onTap: () {
                             setState(() {
                               _checkIsSingIn = false;
@@ -118,7 +119,9 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             child: Center(
                               child: Text(
+
                                 AppLocalizations.of(context)!.singUp,
+
                                 style: _checkIsSingIn ? AppFonts.signButtonP : AppFonts.signButtonA,
                               ),
                             ),

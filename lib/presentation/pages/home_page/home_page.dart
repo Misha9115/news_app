@@ -94,6 +94,7 @@ class _HomePageState extends State<HomePage> {
       converter: HomePageVM.init,
       onInitialBuild: (vm) {
         if (vm.newsList.articles!.isEmpty) {
+
           vm.getBooks();
         }
       },

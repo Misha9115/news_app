@@ -75,6 +75,7 @@ class _SearchPageState extends State<SearchPage> {
               keyValue: key,
             ),
             InkWell(
+              key: const Key(keySearchKey),
               onTap: () {
                 vm.getSearchNews(20, _myTextController.text);
               },
@@ -154,6 +155,7 @@ class _SearchPageState extends State<SearchPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 InkWell(
+                  key: const Key(keyChangePageSearch),
                   onTap: () {
                     if (vm.page > 1) {
                       vm.changePage(vm.page - 1, _myTextController.text);
@@ -166,6 +168,7 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ),
                 InkWell(
+                  key: const Key(keyChangePageSearch2),
                   onTap: () {
                     vm.changePage(vm.page + 1, _myTextController.text);
                     vm.changeNewsPage(vm.page + 1);

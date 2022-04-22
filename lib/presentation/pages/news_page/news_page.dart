@@ -161,6 +161,7 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
                                           ),
                                         )),
                                 InkWell(
+                                  key: const Key(keySite),
                                   onTap: () {
                                     _launchURL(widget.news.url);
                                   },

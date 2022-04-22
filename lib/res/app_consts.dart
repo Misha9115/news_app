@@ -9,6 +9,19 @@ const String key = 'textFieldSearch';
 const String keyLogin = 'textFieldLogin';
 const String keyPassword = 'textFieldPassword';
 const String keyConfirmPassword = 'textFieldConfirmPassword';
+
+const String keyCFontSize = 'cFontSize';
+const String keyDropdownButton = 'DropdownButton';
+const String keysUpButton = 'sUpButton';
+const String keySearchKey = 'SearchKey';
+const String keyChangePageSearch = 'changePageSearch-';
+const String keyChangePageSearch2 = 'changePageSearch+';
+const String keySite = 'site';
+
+
+
+
+
 const String lorText =
     'Everyday practice shows that the further development of various forms of activity provides a wide range of (specialists) participation in the formation of systems of mass participation. Thus, consultation with a broad asset allows you to evaluate the value of new proposals.';
 const String fontFamily = 'SFProText';

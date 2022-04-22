@@ -26,6 +26,7 @@ class _FavPageState extends State<FavPage> {
   @override
   void dispose() {
     _singleChildScroll.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 

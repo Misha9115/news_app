@@ -37,11 +37,7 @@ class _SplashPageState extends State<SplashPage> {
         AppRoutes.loginPage,
       );
     });
-    // Future.delayed(const Duration(seconds: 5), () {
-    //   Navigator.of(context).pushNamed(
-    //     AppRoutes.loginPage,
-    //   );
-    // });
+
   }
   @override
   void dispose() {

@@ -59,6 +59,7 @@ class LoginEpic {
           await FirebaseCrashlytics.instance.recordError(e, null, reason: 'a non-fatal error');
         }
       },
+
     );
   }
 
