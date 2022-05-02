@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:news_paper/presentation/layouts/main_layouts.dart';
 import 'package:news_paper/presentation/pages/search_page/search_page_vm.dart';
 import 'package:news_paper/presentation/widgets/custom_text_field.dart';
 import 'package:news_paper/presentation/widgets/news_card.dart';
@@ -23,41 +22,49 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  @override
+  Widget build(BuildContext context) {
+    return StoreConnector<AppState, SearchPageVM>(
+      converter: SearchPageVM.init,
+      distinct: true,
+      builder: (context, vm) {
+        return _Widget(vm: vm);
+      },
+    );
+  }
+}
+
+class _Widget extends StatefulWidget {
+  final SearchPageVM vm;
+
+  const _Widget({required this.vm, Key? key}) : super(key: key);
+
+  @override
+  _WidgetState createState() => _WidgetState();
+}
+
+class _WidgetState extends State<_Widget> {
   final ScrollController _singleChildScroll = ScrollController();
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _myTextController = TextEditingController();
-  double offset = 0.0;
   bool _paginationLoader = false;
 
   @override
   void dispose() {
     _singleChildScroll.dispose();
+    _scrollController.dispose();
+    _myTextController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, SearchPageVM>(
-      converter: SearchPageVM.init,
-      builder: (context, vm) {
-        return MainLayout(
-          bottomNavigationBar: true,
-          appBar: true,
-          body: loadingBooks(vm),
-          selectedIndex: 2,
-          title: AppLocalizations.of(context)!.news,
-        );
-      },
-    );
-  }
-
-  Widget loadingBooks(SearchPageVM vm) {
     return NotificationListener<ScrollUpdateNotification>(
       onNotification: (scroll) {
         if (_singleChildScroll.position.pixels >= (_singleChildScroll.position.maxScrollExtent - 900)) {
-          if (vm.newsList.length < 81) {
+          if (widget.vm.newsList.length < newsListLength) {
             if (!_paginationLoader) {
-              vm.pagination(vm.newsList.length + 20, _myTextController.text);
+              widget.vm.pagination(widget.vm.newsList.length + paginationStep, _myTextController.text);
               _paginationLoader = true;
             }
           }
@@ -77,17 +84,17 @@ class _SearchPageState extends State<SearchPage> {
             InkWell(
               key: const Key(keySearchKey),
               onTap: () {
-                vm.getSearchNews(20, _myTextController.text);
+                widget.vm.getSearchNews(paginationStep, _myTextController.text);
               },
               child: Icon(
                 Icons.search,
                 size: 50,
-                color: vm.light ? AppColors.white : AppColors.black,
+                color: widget.vm.isLight ? AppColors.white : AppColors.black,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0, left: 15.0, right: 15.0),
-              child: vm.newsList.isEmpty
+              child: widget.vm.newsList.isEmpty
                   ? SizedBox(
                       height: MediaQuery.of(context).size.height * 0.5,
                       child: Center(
@@ -95,10 +102,10 @@ class _SearchPageState extends State<SearchPage> {
                           AppLocalizations.of(context)!.load,
                           style: TextStyle(
                             fontFamily: fontFamily,
-                            fontSize: 17.0 * vm.fontSize,
+                            fontSize: 17.0 * widget.vm.fontSize,
                             height: 1.3,
                             fontWeight: FontWeight.w400,
-                            color: vm.light ? AppColors.white.withOpacity(0.8) : AppColors.black,
+                            color: widget.vm.isLight ? AppColors.white.withOpacity(0.8) : AppColors.black,
                           ),
                         ),
                       ),
@@ -116,19 +123,19 @@ class _SearchPageState extends State<SearchPage> {
                                   onTap: () {
                                     Navigator.of(context).pushNamed(
                                       AppRoutes.newsPage,
-                                      arguments: NewsPageData(news: vm.newsList[index]),
+                                      arguments: NewsPageData(news: widget.vm.newsList[index]),
                                     );
                                   },
                                   child: NewsCard(
-                                    link: vm.newsList[index].urlToImage ?? imageURL,
-                                    titleNews: vm.newsList[index].title ?? emptyString,
-                                    light: vm.light,
-                                    fontSize: vm.fontSize,
+                                    link: widget.vm.newsList[index].urlToImage ?? imageURL,
+                                    titleNews: widget.vm.newsList[index].title ?? emptyString,
+                                    light: widget.vm.isLight,
+                                    fontSize: widget.vm.fontSize,
                                   ),
                                 ),
                               );
                             },
-                            childCount: vm.newsList.length,
+                            childCount: widget.vm.newsList.length,
                           ),
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
                             crossAxisCount: 2,
@@ -138,7 +145,7 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                         SliverToBoxAdapter(
                           child: Container(
-                            height: vm.paginationLoader ? 50.0 : 0.0,
+                            height: widget.vm.isPaginationLoading ? 50.0 : 0.0,
                             color: Colors.transparent,
                             child: const Center(
                               child: CircularProgressIndicator(
@@ -157,30 +164,30 @@ class _SearchPageState extends State<SearchPage> {
                 InkWell(
                   key: const Key(keyChangePageSearch),
                   onTap: () {
-                    if (vm.page > 1) {
-                      vm.changePage(vm.page - 1, _myTextController.text);
-                      vm.changeNewsPage(vm.page - 1);
+                    if (widget.vm.page > 1) {
+                      widget.vm.changePage(widget.vm.page - 1, _myTextController.text);
+                      widget.vm.changeNewsPage(widget.vm.page - 1);
                     }
                   },
                   child: Text(
                     AppLocalizations.of(context)!.lPage,
-                    style: vm.light ? AppFonts.bottomBarTextStyleNight : AppFonts.bottomBarTextStyle,
+                    style: widget.vm.isLight ? AppFonts.bottomBarTextStyleNight : AppFonts.bottomBarTextStyle,
                   ),
                 ),
                 InkWell(
                   key: const Key(keyChangePageSearch2),
                   onTap: () {
-                    vm.changePage(vm.page + 1, _myTextController.text);
-                    vm.changeNewsPage(vm.page + 1);
+                    widget.vm.changePage(widget.vm.page + 1, _myTextController.text);
+                    widget.vm.changeNewsPage(widget.vm.page + 1);
                   },
                   child: Text(
                     AppLocalizations.of(context)!.nPage,
                     style: TextStyle(
                       fontFamily: fontFamily,
-                      fontSize: 10.0 * vm.fontSize,
+                      fontSize: 10.0 * widget.vm.fontSize,
                       height: 1.2,
                       fontWeight: FontWeight.w500,
-                      color: vm.light ? AppColors.white.withOpacity(0.8) : AppColors.mainTextColor,
+                      color: widget.vm.isLight ? AppColors.white.withOpacity(0.8) : AppColors.mainTextColor,
                     ),
                   ),
                 ),

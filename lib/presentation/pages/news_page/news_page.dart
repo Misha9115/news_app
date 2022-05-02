@@ -41,6 +41,7 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return StoreConnector<AppState, NewsPageVM>(
       converter: NewsPageVM.init,
+      distinct: true,
       onInitialBuild: (NewsPageVM vm) {
         if (_chekFav(widget.news.url!, vm)) {
           _animationController.forward();
@@ -50,7 +51,7 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
       },
       builder: (context, vm) {
         return Scaffold(
-          backgroundColor: vm.light ? AppColors.grey : AppColors.white,
+          backgroundColor: vm.isLight ? AppColors.grey : AppColors.white,
           appBar: AppBar(
             title: Text(
               AppLocalizations.of(context)!.title,
@@ -61,7 +62,7 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
                 color: AppColors.white,
               ),
             ),
-            backgroundColor: vm.light ? AppColors.grey : null,
+            backgroundColor: vm.isLight ? AppColors.grey : null,
           ),
           body: ListView(
             children: [
@@ -124,7 +125,7 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
                       child: Container(
                         height: 59.0,
                         decoration: BoxDecoration(
-                          color: vm.light ? AppColors.grey : AppColors.white,
+                          color: vm.isLight ? AppColors.grey : AppColors.white,
                           borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(40.0),
                             topRight: Radius.circular(40.0),
@@ -162,9 +163,7 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
                                         )),
                                 InkWell(
                                   key: const Key(keySite),
-                                  onTap: () {
-                                    _launchURL(widget.news.url);
-                                  },
+                                  onTap: () => _launchURL(widget.news.url),
                                   child: Text(
                                     AppLocalizations.of(context)!.read,
                                     style: TextStyle(
@@ -187,7 +186,7 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: vm.light ? AppColors.grey : AppColors.white,
+                  color: vm.isLight ? AppColors.grey : AppColors.white,
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
@@ -198,7 +197,7 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
                         fontFamily: fontFamily,
                         fontSize: 20.0 * vm.fontSize,
                         fontWeight: FontWeight.w700,
-                        color: vm.light ? AppColors.white.withOpacity(0.8) : AppColors.black,
+                        color: vm.isLight ? AppColors.white.withOpacity(0.8) : AppColors.black,
                       ),
                       maxLines: 3,
                     ),
@@ -212,7 +211,7 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
                           fontSize: 17.0 * vm.fontSize,
                           height: 1.3,
                           fontWeight: FontWeight.w400,
-                          color: vm.light ? AppColors.white.withOpacity(0.8) : AppColors.black),
+                          color: vm.isLight ? AppColors.white.withOpacity(0.8) : AppColors.black),
                     )
                   ],
                 ),

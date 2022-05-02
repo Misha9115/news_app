@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:news_paper/presentation/layouts/main_layouts.dart';
 import 'package:news_paper/presentation/pages/fav_page/fav_page_vm.dart';
 import 'package:news_paper/presentation/widgets/news_card.dart';
 import 'package:news_paper/presentation/widgets/silver_grid_delegate.dart';
@@ -19,6 +17,36 @@ class FavPage extends StatefulWidget {
 }
 
 class _FavPageState extends State<FavPage> {
+  @override
+  Widget build(BuildContext context) {
+    return StoreConnector<AppState, FavPageVM>(
+      converter: FavPageVM.init,
+      distinct: true,
+      onInitialBuild: (vm) {
+        vm.getDataFromDataBase();
+      },
+      builder: (context, vm) {
+        return _Widget(
+          vm: vm,
+        );
+      },
+    );
+  }
+}
+
+class _Widget extends StatefulWidget {
+  final FavPageVM vm;
+
+  const _Widget({
+    required this.vm,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _WidgetState createState() => _WidgetState();
+}
+
+class _WidgetState extends State<_Widget> {
   final ScrollController _singleChildScroll = ScrollController();
   final ScrollController _scrollController = ScrollController();
   double offset = 0.0;
@@ -32,24 +60,6 @@ class _FavPageState extends State<FavPage> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, FavPageVM>(
-      converter: FavPageVM.init,
-      onInitialBuild: (vm) {
-        vm.getDataFromDataBase();
-      },
-      builder: (context, vm) {
-        return MainLayout(
-          bottomNavigationBar: true,
-          appBar: true,
-          body: loadingBooks(vm),
-          selectedIndex: 1,
-          title: AppLocalizations.of(context)!.fTitle,
-        );
-      },
-    );
-  }
-
-  Widget loadingBooks(FavPageVM vm) {
     return NotificationListener<ScrollUpdateNotification>(
       onNotification: (scroll) {
         return false;
@@ -75,20 +85,20 @@ class _FavPageState extends State<FavPage> {
                               Navigator.of(context).pushNamed(
                                 AppRoutes.newsPage,
                                 arguments: NewsPageData(
-                                  news: vm.articlesDto[index],
+                                  news: widget.vm.articlesDto[index],
                                 ),
                               );
                             },
                             child: NewsCard(
-                              link: vm.articlesDto[index].urlToImage!,
-                              titleNews: vm.articlesDto[index].title!,
-                              light: vm.light,
-                              fontSize: vm.fontSize,
+                              link: widget.vm.articlesDto[index].urlToImage!,
+                              titleNews: widget.vm.articlesDto[index].title!,
+                              light: widget.vm.isLight,
+                              fontSize: widget.vm.fontSize,
                             ),
                           ),
                         );
                       },
-                      childCount: vm.articlesDto.length,
+                      childCount: widget.vm.articlesDto.length,
                     ),
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
                       crossAxisCount: 3,

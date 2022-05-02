@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:news_paper/presentation/pages/fav_page/fav_page.dart';
-import 'package:news_paper/presentation/pages/home_page/home_page.dart';
+import 'package:news_paper/domain/service/analitics_service.dart';
+import 'package:news_paper/presentation/layouts/main_layouts.dart';
 import 'package:news_paper/presentation/pages/login_page/login_page.dart';
 import 'package:news_paper/presentation/pages/news_page/news_page.dart';
-import 'package:news_paper/presentation/pages/search_page/search_page.dart';
-import 'package:news_paper/presentation/pages/settings_page/pages/about_us.dart';
-import 'package:news_paper/presentation/pages/settings_page/settings_page.dart';
+import 'package:news_paper/presentation/pages/about_us/about_us.dart';
 import 'package:news_paper/presentation/pages/splash_page/splash_page.dart';
 import 'package:news_paper/route_manager/models/about_us_page_data.dart';
 import 'package:news_paper/route_manager/models/news_page_data.dart';
 import 'package:news_paper/route_manager/routes.dart';
+import 'package:news_paper/shared/locator.dart';
 
 class RouteManager {
   static final RouteManager _instance = RouteManager._();
@@ -19,58 +18,48 @@ class RouteManager {
   late final GlobalKey<NavigatorState> navigatorKey;
 
   RouteManager._() : navigatorKey = GlobalKey();
+  final AnalyticService _analyticsService = getIt<AnalyticService>();
 
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.homePage:
         return _defaultRoute(
           settings: settings,
-          page: const HomePage(),
+          page:  const MainLayout(),
         );
       case AppRoutes.newsPage:
+        _analyticsService.changePage(pageName: AppRoutes.newsPage);
         return _defaultRoute(
           settings: settings,
           page: NewsPage(
             news: (settings.arguments as NewsPageData).news,
           ),
         );
-      case AppRoutes.favPage:
-        return _defaultRoute(
-          settings: settings,
-          page: const FavPage(),
-        );
-      case AppRoutes.searchPage:
-        return _defaultRoute(
-          settings: settings,
-          page: const SearchPage(),
-        );
       case AppRoutes.loginPage:
+        _analyticsService.changePage(pageName: AppRoutes.loginPage);
         return _defaultRoute(
           settings: settings,
           page: const LoginPage(),
         );
       case AppRoutes.splashPage:
+        _analyticsService.changePage(pageName: AppRoutes.splashPage);
         return _defaultRoute(
           settings: settings,
           page: const SplashPage(),
         );
-      case AppRoutes.settingsPage:
-        return _defaultRoute(
-          settings: settings,
-          page: const SettingsPage(),
-        );
       case AppRoutes.aboutUs:
+        _analyticsService.changePage(pageName: AppRoutes.aboutUs);
         return _defaultRoute(
           settings: settings,
           page:  AboutUs(
             fontSize: (settings.arguments as AboutUsPageData).fontSize,
-            light:  (settings.arguments as AboutUsPageData).light,
+            isLight:  (settings.arguments as AboutUsPageData).isLight,
           ),
         );
       default:
         return _defaultRoute(
           settings: settings,
-          page: const HomePage(),
+          page:  const MainLayout(),
         );
     }
   }

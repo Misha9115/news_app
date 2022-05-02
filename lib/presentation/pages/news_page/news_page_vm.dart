@@ -9,7 +9,7 @@ class NewsPageVM {
   final void Function(ArticlesDto news) addFav;
   final void Function(ArticlesDto news) deleteFav;
   final void Function(ArticlesDto news) saveToDataBase;
-  final bool light;
+  final bool isLight;
   final double fontSize;
 
   const NewsPageVM({
@@ -17,7 +17,7 @@ class NewsPageVM {
     required this.addFav,
     required this.deleteFav,
     required this.saveToDataBase,
-    required this.light,
+    required this.isLight,
     required this.fontSize,
   });
 
@@ -27,7 +27,7 @@ class NewsPageVM {
       deleteFav: FavSelectors.deleteF(store),
       articlesDto: FavSelectors.getFav(store),
       saveToDataBase: FavSelectors.saveToDataBase(store),
-      light: SettingsSelectors.getTheme(store),
+      isLight: SettingsSelectors.getTheme(store),
       fontSize: SettingsSelectors.getFontSize(store),
     );
   }

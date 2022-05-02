@@ -6,34 +6,34 @@ import 'package:news_paper/store/settings/settings_selector.dart';
 import 'package:redux/redux.dart';
 
 class HomePageVM {
-  final void Function() getBooks;
+  final void Function() getNews;
   final NewsListDto newsList;
-  final bool paginationLoader;
+  final bool isPaginationLoading;
   final void Function(int pageSize) getPagination;
   final void Function(int page) changePage;
   final int page;
-  final bool light;
+  final bool isLight;
   final double fontSize;
 
   const HomePageVM(
-      {required this.getBooks,
+      {required this.getNews,
       required this.newsList,
-      required this.paginationLoader,
+      required this.isPaginationLoading,
       required this.getPagination,
       required this.changePage,
       required this.page,
-      required this.light,
+      required this.isLight,
       required this.fontSize});
 
   static HomePageVM init(Store<AppState> store) {
     return HomePageVM(
-      getBooks: NewsSelectors.getLibrariesFavoriteCountFunction(store),
+      getNews: NewsSelectors.getQetNews(store),
       newsList: NewsSelectors.getNews(store),
-      paginationLoader: LoaderSelectors.getPaginationLoader(store),
+      isPaginationLoading: LoaderSelectors.getPaginationLoader(store),
       getPagination: NewsSelectors.getPaginationNews(store),
       changePage: NewsSelectors.changePageAction(store),
       page: NewsSelectors.getPages(store),
-      light: SettingsSelectors.getTheme(store),
+      isLight: SettingsSelectors.getTheme(store),
       fontSize: SettingsSelectors.getFontSize(store),
     );
   }

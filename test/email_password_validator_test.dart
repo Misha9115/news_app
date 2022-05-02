@@ -51,6 +51,5 @@ void main() {
     ),);
 
 
-       expect(store.state.favState.articlesDto, null!);
   });
 }

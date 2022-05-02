@@ -5,11 +5,11 @@ import 'package:news_paper/res/app_consts.dart';
 import 'package:news_paper/res/app_styles.dart';
 
 class AboutUs extends StatefulWidget {
-  final bool light;
+  final bool isLight;
   final double fontSize;
 
   const AboutUs({
-    required this.light,
+    required this.isLight,
     required this.fontSize,
     Key? key,
   }) : super(key: key);
@@ -22,7 +22,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: widget.light ? AppColors.grey : AppColors.white,
+      backgroundColor: widget.isLight ? AppColors.grey : AppColors.white,
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context)!.aUs,
@@ -33,7 +33,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
             color: AppColors.white,
           ),
         ),
-        backgroundColor: widget.light ? AppColors.grey : null,
+        backgroundColor: widget.isLight ? AppColors.grey : null,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -47,7 +47,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
                   fontFamily: fontFamily,
                   fontSize: 20.0 * widget.fontSize,
                   fontWeight: FontWeight.w700,
-                  color: widget.light ? AppColors.white.withOpacity(0.8) : AppColors.black,
+                  color: widget.isLight ? AppColors.white.withOpacity(0.8) : AppColors.black,
                 ),
                 maxLines: 3,
               ),
@@ -61,7 +61,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
             ),
             Container(
               decoration: BoxDecoration(
-                color: widget.light ? AppColors.grey : AppColors.white,
+                color: widget.isLight ? AppColors.grey : AppColors.white,
               ),
               child: Column(
                 children: [
@@ -72,7 +72,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
                         fontSize: 10.0 * widget.fontSize,
                         height: 1.3,
                         fontWeight: FontWeight.w400,
-                        color: widget.light ? AppColors.white.withOpacity(0.8) : AppColors.black),
+                        color: widget.isLight ? AppColors.white.withOpacity(0.8) : AppColors.black),
                   ),
                   Text(
                     lorText,
@@ -81,7 +81,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
                         fontSize: 10.0 * widget.fontSize,
                         height: 1.3,
                         fontWeight: FontWeight.w400,
-                        color: widget.light ? AppColors.white.withOpacity(0.8) : AppColors.black),
+                        color: widget.isLight ? AppColors.white.withOpacity(0.8) : AppColors.black),
                   )
                 ],
               ),
@@ -94,7 +94,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
                   fontFamily: fontFamily,
                   fontSize: 20.0 * widget.fontSize,
                   fontWeight: FontWeight.w700,
-                  color: widget.light ? AppColors.white.withOpacity(0.8) : AppColors.black,
+                  color: widget.isLight ? AppColors.white.withOpacity(0.8) : AppColors.black,
                 ),
                 maxLines: 3,
               ),
@@ -116,7 +116,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
                         height: 1.3,
                         fontWeight: FontWeight.w400,
                         overflow: TextOverflow.clip,
-                        color: widget.light ? AppColors.white.withOpacity(0.8) : AppColors.black),
+                        color: widget.isLight ? AppColors.white.withOpacity(0.8) : AppColors.black),
                   ),
                 ),
               ],
@@ -129,7 +129,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
                   fontFamily: fontFamily,
                   fontSize: 20.0 * widget.fontSize,
                   fontWeight: FontWeight.w700,
-                  color: widget.light ? AppColors.white.withOpacity(0.8) : AppColors.black,
+                  color: widget.isLight ? AppColors.white.withOpacity(0.8) : AppColors.black,
                 ),
                 maxLines: 3,
               ),
@@ -146,7 +146,7 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
                   height: 1.3,
                   fontWeight: FontWeight.w400,
                   overflow: TextOverflow.clip,
-                  color: widget.light ? AppColors.white.withOpacity(0.8) : AppColors.black),
+                  color: widget.isLight ? AppColors.white.withOpacity(0.8) : AppColors.black),
             ),
           ],
         ),

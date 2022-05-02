@@ -1,9 +1,9 @@
 
 class AboutUsPageData {
-  final bool light;
+  final bool isLight;
   final double fontSize;
   AboutUsPageData({
-    required this.light,
+    required this.isLight,
     required this.fontSize,
   });
 }

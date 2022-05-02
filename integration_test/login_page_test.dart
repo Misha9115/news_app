@@ -10,13 +10,13 @@ import 'package:news_paper/domain/entity/articles/articles_dto.dart';
 import 'package:news_paper/l10n/l10n.dart';
 import 'package:news_paper/presentation/pages/home_page/home_page.dart';
 import 'package:news_paper/presentation/pages/login_page/login_page.dart';
-import 'package:news_paper/presentation/pages/login_page/widgets/global_button.dart';
-import 'package:news_paper/presentation/pages/login_page/widgets/login_button.dart';
+import 'package:news_paper/presentation/widgets/global_button.dart';
+import 'package:news_paper/presentation/widgets/login_button.dart';
 import 'package:news_paper/presentation/pages/news_page/news_page.dart';
 import 'package:news_paper/presentation/pages/search_page/search_page.dart';
-import 'package:news_paper/presentation/pages/settings_page/pages/about_us.dart';
+import 'package:news_paper/presentation/pages/about_us/about_us.dart';
 import 'package:news_paper/presentation/pages/settings_page/settings_page.dart';
-import 'package:news_paper/presentation/pages/settings_page/widgets/page_button.dart';
+import 'package:news_paper/presentation/widgets/page_button.dart';
 import 'package:news_paper/presentation/pages/splash_page/splash_page.dart';
 import 'package:news_paper/presentation/widgets/custom_text_field.dart';
 import 'package:news_paper/presentation/widgets/news_card.dart';
@@ -109,7 +109,7 @@ void main() {
         supportedLocales: L10n.all,
         home: const AboutUs(
           fontSize: 1,
-          light: true,
+          isLight: true,
         ),
       ));
     });

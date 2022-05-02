@@ -16,10 +16,12 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  bool get isPlaying => _controller?.isActive ?? false;
-  late Timer _timer;
   Artboard? _riveArtboard;
   RiveAnimationController? _controller;
+
+  late Timer _timer;
+
+  bool get isPlaying => _controller?.isActive ?? false;
 
   @override
   void initState() {
@@ -32,18 +34,19 @@ class _SplashPageState extends State<SplashPage> {
         setState(() => _riveArtboard = artboard);
       },
     );
-    _timer =  Timer(const Duration(seconds: 5), () {
+    _timer = Timer(const Duration(seconds: 5), () {
       Navigator.of(context).pushNamed(
         AppRoutes.loginPage,
       );
     });
-
   }
+
   @override
   void dispose() {
     super.dispose();
     _timer.cancel();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

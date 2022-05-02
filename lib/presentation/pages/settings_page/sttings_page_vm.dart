@@ -5,7 +5,7 @@ import 'package:news_paper/store/settings/settings_selector.dart';
 import 'package:redux/redux.dart';
 
 class SettingsPageVM {
-  final bool lightTheme;
+  final bool isLight;
   final Locale language;
   final double getFontSize;
   final void Function(bool theme) changeTheme;
@@ -13,7 +13,7 @@ class SettingsPageVM {
   final void Function(double size) changeFontSize;
 
   const SettingsPageVM({
-    required this.lightTheme,
+    required this.isLight,
     required this.changeTheme,
     required this.changeLanguage,
     required this.language,
@@ -23,7 +23,7 @@ class SettingsPageVM {
 
   static SettingsPageVM init(Store<AppState> store) {
     return SettingsPageVM(
-      lightTheme: SettingsSelectors.getTheme(store),
+      isLight: SettingsSelectors.getTheme(store),
       changeTheme: SettingsSelectors.changeTheme(store),
       changeLanguage: LanguageSelectors.changeLanguage(store),
       language: LanguageSelectors.getLocale(store),

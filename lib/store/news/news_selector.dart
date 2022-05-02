@@ -4,7 +4,7 @@ import 'package:news_paper/store/news/news_actions.dart';
 import 'package:redux/redux.dart';
 
 abstract class NewsSelectors {
-  static void Function() getLibrariesFavoriteCountFunction(Store<AppState> store) {
+  static void Function() getQetNews(Store<AppState> store) {
     return () => store.dispatch(GetNewsAction());
   }
 

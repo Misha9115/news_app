@@ -45,3 +45,7 @@ const String en = 'en';
 const String de = 'de';
 const String germany = 'Germany';
 const String english = 'English';
+
+
+const int newsListLength =81;
+const int paginationStep =20;

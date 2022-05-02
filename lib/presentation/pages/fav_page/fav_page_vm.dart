@@ -12,7 +12,7 @@ class FavPageVM {
   final void Function(ArticlesDto news) addFav;
   final void Function(ArticlesDto news) deleteFav;
   final void Function() getDataFromDataBase;
-  final bool light;
+  final bool isLight;
   final double fontSize;
 
   const FavPageVM({
@@ -21,7 +21,7 @@ class FavPageVM {
     required this.addFav,
     required this.deleteFav,
     required this.getDataFromDataBase,
-    required this.light,
+    required this.isLight,
     required this.fontSize,
   });
 
@@ -32,7 +32,7 @@ class FavPageVM {
       deleteFav: FavSelectors.deleteF(store),
       articlesDto: FavSelectors.getFav(store),
       getDataFromDataBase: FavSelectors.getData(store),
-      light: SettingsSelectors.getTheme(store),
+      isLight: SettingsSelectors.getTheme(store),
       fontSize: SettingsSelectors.getFontSize(store),
     );
   }

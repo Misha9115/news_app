@@ -1,14 +1,12 @@
 // ignore_for_file: avoid_print
 
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:news_paper/domain/entity/push_notification.dart';
-import 'package:news_paper/presentation/layouts/main_layouts.dart';
 import 'package:news_paper/presentation/pages/home_page/home_page_vm.dart';
 import 'package:news_paper/presentation/widgets/news_card.dart';
 import 'package:news_paper/presentation/widgets/silver_grid_delegate.dart';
@@ -18,10 +16,6 @@ import 'package:news_paper/route_manager/models/news_page_data.dart';
 import 'package:news_paper/route_manager/routes.dart';
 import 'package:news_paper/store/application/app_state.dart';
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print("Handling a background message: ${message.messageId}");
-}
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -30,79 +24,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final ScrollController _singleChildScroll = ScrollController();
-
-  double offset = 0.0;
-  bool _paginationLoader = false;
-  late final FirebaseMessaging _messaging;
-
-  void registerNotification() async {
-    await Firebase.initializeApp();
-    _messaging = FirebaseMessaging.instance;
-
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-    NotificationSettings settings = await _messaging.requestPermission(
-      alert: true,
-      badge: true,
-      provisional: false,
-      sound: true,
-    );
-
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
-
-      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-        print('Message title: ${message.notification?.title}, body: ${message.notification?.body}, data: ${message.data}');
-      });
-    } else {
-      print('User declined or has not accepted permission');
-    }
-  }
-
-  checkForInitialMessage() async {
-    await Firebase.initializeApp();
-    RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
-  }
-
-  @override
-  void initState() {
-    registerNotification();
-    checkForInitialMessage();
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      PushNotification notification = PushNotification(
-        title: message.notification?.title,
-        body: message.notification?.body,
-        dataTitle: message.data['title'],
-        dataBody: message.data['body'],
-      );
-    });
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _singleChildScroll.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, HomePageVM>(
       converter: HomePageVM.init,
+      distinct: false,
       onInitialBuild: (vm) {
         if (vm.newsList.articles!.isEmpty) {
-
-          vm.getBooks();
+          vm.getNews();
         }
       },
       builder: (context, vm) {
-        return MainLayout(
-          bottomNavigationBar: true,
-          appBar: false,
-          body: vm.newsList.articles!.isEmpty
+        return  vm.newsList.articles!.isEmpty
               ? Center(
                   child: Text(
                     AppLocalizations.of(context)!.load,
@@ -115,25 +49,46 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 )
-              : loadingBooks(vm),
-          selectedIndex: 0,
-          title: AppLocalizations.of(context)!.news,
-        );
+              : _Widget(vm: vm);
+
       },
     );
   }
+}
 
-  Widget loadingBooks(HomePageVM vm) {
-    if (!vm.paginationLoader) {
-      _paginationLoader = false;
+class _Widget extends StatefulWidget {
+  final HomePageVM vm;
+
+  const _Widget({required this.vm, Key? key}) : super(key: key);
+
+  @override
+  _WidgetState createState() => _WidgetState();
+}
+
+class _WidgetState extends State<_Widget> {
+  final ScrollController _singleChildScroll = ScrollController();
+  double offset = 0.0;
+  bool _isPaginationLoading = false;
+
+  @override
+  void dispose() {
+    _singleChildScroll.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!widget.vm.isPaginationLoading) {
+      _isPaginationLoading = false;
     }
+
     return NotificationListener<ScrollUpdateNotification>(
       onNotification: (scroll) {
         if (_singleChildScroll.position.pixels >= (_singleChildScroll.position.maxScrollExtent - 900)) {
-          if (vm.newsList.articles!.length < 81) {
-            if (!_paginationLoader) {
-              vm.getPagination(vm.newsList.articles!.length + 20);
-              _paginationLoader = true;
+          if (widget.vm.newsList.articles!.length < newsListLength) {
+            if (!_isPaginationLoading) {
+              widget.vm.getPagination(widget.vm.newsList.articles!.length + paginationStep);
+              _isPaginationLoading = true;
             }
           }
         }
@@ -153,17 +108,18 @@ class _HomePageState extends State<HomePage> {
                 AppLocalizations.of(context)!.lNews,
                 style: TextStyle(
                   color: AppColors.white,
-                  fontSize: 17 * vm.fontSize,
+                  fontSize: 17 * widget.vm.fontSize,
                 ),
               ),
               background: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Image.asset(
-                    news,
-                    fit: BoxFit.cover,
-                    color: vm.light ? AppColors.grey : AppColors.grey2,
-                    colorBlendMode: BlendMode.modulate,
-                  )),
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset(
+                  news,
+                  fit: BoxFit.cover,
+                  color: widget.vm.isLight ? AppColors.grey : AppColors.grey2,
+                  colorBlendMode: BlendMode.modulate,
+                ),
+              ),
             ),
           ),
           SliverGrid(
@@ -176,20 +132,20 @@ class _HomePageState extends State<HomePage> {
                       Navigator.of(context).pushNamed(
                         AppRoutes.newsPage,
                         arguments: NewsPageData(
-                          news: vm.newsList.articles![index],
+                          news: widget.vm.newsList.articles![index],
                         ),
                       );
                     },
                     child: NewsCard(
-                      link: vm.newsList.articles![index].urlToImage!,
-                      titleNews: vm.newsList.articles![index].title!,
-                      fontSize: vm.fontSize,
-                      light: vm.light,
+                      link: widget.vm.newsList.articles![index].urlToImage!,
+                      titleNews: widget.vm.newsList.articles![index].title!,
+                      fontSize: widget.vm.fontSize,
+                      light: widget.vm.isLight,
                     ),
                   ),
                 );
               },
-              childCount: vm.newsList.articles!.length,
+              childCount: widget.vm.newsList.articles!.length,
             ),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
               crossAxisCount: 3,
@@ -199,7 +155,7 @@ class _HomePageState extends State<HomePage> {
           ),
           SliverToBoxAdapter(
             child: Container(
-              height: vm.paginationLoader ? 50.0 : 0.0,
+              height: widget.vm.isPaginationLoading ? 50.0 : 0.0,
               color: Colors.transparent,
               child: const Center(
                 child: CircularProgressIndicator(

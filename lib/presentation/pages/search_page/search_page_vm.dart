@@ -12,8 +12,8 @@ class SearchPageVM {
   final List<ArticlesDto> newsList;
   final void Function(int page) changeNewsPage;
   final void Function(int pageSize, String searchReqest) pagination;
-  final bool paginationLoader;
-  final bool light;
+  final bool isPaginationLoading;
+  final bool isLight;
   final double fontSize;
 
   const SearchPageVM({
@@ -23,8 +23,8 @@ class SearchPageVM {
     required this.newsList,
     required this.changeNewsPage,
     required this.pagination,
-    required this.paginationLoader,
-    required this.light,
+    required this.isPaginationLoading,
+    required this.isLight,
     required this.fontSize,
   });
 
@@ -36,8 +36,8 @@ class SearchPageVM {
       newsList: SearchNewsSelectors.getNews(store),
       changeNewsPage: SearchNewsSelectors.changeSearchPageAction(store),
       pagination: SearchNewsSelectors.paginationSearchNews(store),
-      paginationLoader: LoaderSelectors.getPaginationLoader(store),
-      light: SettingsSelectors.getTheme(store),
+      isPaginationLoading: LoaderSelectors.getPaginationLoader(store),
+      isLight: SettingsSelectors.getTheme(store),
       fontSize: SettingsSelectors.getFontSize(store),
     );
   }
