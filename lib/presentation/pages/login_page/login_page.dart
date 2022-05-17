@@ -140,13 +140,13 @@ class _WidgetState extends State<_Widget> {
                 ),
               ),
             ),
-            AppTextField(
+            CustomTextField(
               controller: _loginController,
               keyValue: keyLogin,
               hintText: AppLocalizations.of(context)!.login,
             ),
             const SizedBox(height: 15.0),
-            AppTextField(
+            CustomTextField(
               controller: _passwordController,
               keyValue: keyPassword,
               hintText: AppLocalizations.of(context)!.password,
@@ -155,7 +155,7 @@ class _WidgetState extends State<_Widget> {
                  Column(
                     children: [
                       const SizedBox(height: 15.0),
-                      AppTextField(
+                      CustomTextField(
                         controller: _confirmPasswordController,
                         keyValue: keyConfirmPassword,
                         hintText: AppLocalizations.of(context)!.cPassword,

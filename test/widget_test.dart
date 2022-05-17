@@ -127,7 +127,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
-          body: AppTextField(
+          body: CustomTextField(
             keyValue: 'keyLoginTest',
             controller: _passwordController,
           ),
@@ -184,7 +184,7 @@ void main() {
             }),
       ),
     );
-    var textField = find.byType(AppTextField);
+    var textField = find.byType(CustomTextField);
 
     expect(textField, findsOneWidget);
     await tester.enterText(textField, 'Work');
@@ -237,7 +237,7 @@ void main() {
     expect(loginButton, findsOneWidget);
     var globalButton = find.byType(GlobalButton);
     expect(globalButton, findsWidgets);
-    var textField = find.byType(AppTextField);
+    var textField = find.byType(CustomTextField);
     expect(textField, findsWidgets);
     print('Login page');
   });

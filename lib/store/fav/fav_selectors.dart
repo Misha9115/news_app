@@ -12,13 +12,13 @@ abstract class FavSelectors {
     return (ArticlesDto news) => store.dispatch(SaveFavAction(news: news));
   }
 
+  static List<ArticlesDto> getFav(Store<AppState> store) {
+    return store.state.favState.articlesDto;
+  }
   static void Function(ArticlesDto news) saveToDataBase(Store<AppState> store) {
     return (ArticlesDto news) => store.dispatch(SaveToDataBaseAction(news: news));
   }
 
-  static List<ArticlesDto> getFav(Store<AppState> store) {
-    return store.state.favState.articlesDto;
-  }
 
   static void Function() getData(Store<AppState> store) {
     return () => store.dispatch(GetDataRomDataBaseAction());

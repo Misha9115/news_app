@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_paper/res/app_styles.dart';
 
-class AppTextField extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
   final String keyValue;
   final void Function(String)? onSubmitted;
   final void Function(String)? validator;
@@ -13,7 +13,7 @@ class AppTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final TextEditingController controller;
 
-  AppTextField({
+  CustomTextField({
     required this.keyValue,
     required this.controller,
     this.focusNode,
@@ -29,7 +29,7 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Stack(
         alignment: Alignment.topCenter,
         children: <Widget>[
@@ -40,7 +40,7 @@ class AppTextField extends StatelessWidget {
           Container(
             alignment: Alignment.center,
             height: 50.0,
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             decoration: BoxDecoration(
               color: AppColors.border.withOpacity(0.5),
               border: Border.all(

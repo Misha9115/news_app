@@ -205,7 +205,7 @@ void main() {
       expect(loginButton, findsOneWidget);
       var globalButton = find.byType(GlobalButton);
       expect(globalButton, findsWidgets);
-      var textField = find.byType(AppTextField);
+      var textField = find.byType(CustomTextField);
       expect(textField, findsWidgets);
       print('Login page');
       expect(find.text('SingIn'), findsWidgets);
@@ -258,7 +258,7 @@ void main() {
               }),
         ),
       );
-      var textField = find.byType(AppTextField);
+      var textField = find.byType(CustomTextField);
       // var sliverToBoxAdapter = find.byType(SliverToBoxAdapter);
       // expect(sliverToBoxAdapter, findsOneWidget);
       expect(textField, findsOneWidget);

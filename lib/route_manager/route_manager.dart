@@ -5,6 +5,7 @@ import 'package:news_paper/presentation/pages/login_page/login_page.dart';
 import 'package:news_paper/presentation/pages/news_page/news_page.dart';
 import 'package:news_paper/presentation/pages/about_us/about_us.dart';
 import 'package:news_paper/presentation/pages/splash_page/splash_page.dart';
+import 'package:news_paper/presentation/pages/support_page/support_page.dart';
 import 'package:news_paper/route_manager/models/about_us_page_data.dart';
 import 'package:news_paper/route_manager/models/news_page_data.dart';
 import 'package:news_paper/route_manager/routes.dart';
@@ -46,6 +47,16 @@ class RouteManager {
         return _defaultRoute(
           settings: settings,
           page: const SplashPage(),
+        );
+
+      case AppRoutes.supportPage:
+        _analyticsService.changePage(pageName: AppRoutes.splashPage);
+        return _defaultRoute(
+          settings: settings,
+          page:  SupportPage(
+            fontSize: (settings.arguments as AboutUsPageData).fontSize,
+            isLight:  (settings.arguments as AboutUsPageData).isLight,
+          ),
         );
       case AppRoutes.aboutUs:
         _analyticsService.changePage(pageName: AppRoutes.aboutUs);

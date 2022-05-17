@@ -77,7 +77,7 @@ class _WidgetState extends State<_Widget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 10.0),
-            AppTextField(
+            CustomTextField(
               controller: _myTextController,
               keyValue: key,
             ),

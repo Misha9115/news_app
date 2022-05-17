@@ -14,7 +14,7 @@ import 'package:news_paper/shared/locator.dart';
 import 'package:news_paper/store/application/app_state.dart';
 
 int selectedIndex = 0;
-String title = '';
+String title = emptyString;
 bool isAppBar = false;
 
 class MainLayout extends StatefulWidget {
@@ -111,7 +111,7 @@ class _MainLayoutState extends State<MainLayout> {
           _analyticsService.changePage(pageName:  AppRoutes.settingsPage);
         }
       } else {
-        title = '';
+        title = emptyString;
         isAppBar = false;
         _analyticsService.changePage(pageName: AppRoutes.homePage);
       }

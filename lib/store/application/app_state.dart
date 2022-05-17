@@ -16,6 +16,8 @@ import 'package:news_paper/store/search_news/search_news_reducer.dart';
 import 'package:news_paper/store/search_news/search_news_state.dart';
 import 'package:news_paper/store/settings/settings_reducer.dart';
 import 'package:news_paper/store/settings/settings_state.dart';
+import 'package:news_paper/store/support/support_reducer.dart';
+import 'package:news_paper/store/support/support_state.dart';
 import 'package:redux_epics/redux_epics.dart';
 
 class AppState {
@@ -26,6 +28,7 @@ class AppState {
   final LoginState loginState;
   final SettingsState settingsState;
   final LanguageState languageState;
+  final SupportState supportState;
 
   AppState({
     required this.newsState,
@@ -35,6 +38,7 @@ class AppState {
     required this.loginState,
     required this.settingsState,
     required this.languageState,
+    required this.supportState,
   });
 
   factory AppState.initial() {
@@ -46,6 +50,7 @@ class AppState {
       loginState: LoginState.initial(),
       settingsState: SettingsState.initial(),
       languageState: LanguageState.initial(),
+      supportState: SupportState.initial(),
     );
   }
 
@@ -58,6 +63,7 @@ class AppState {
       newsState: mewsReducer(state.newsState, action),
       settingsState: settingsReducer(state.settingsState, action),
       languageState: languageReducer(state.languageState, action),
+      supportState: supportReducer(state.supportState,action),
     );
   }
 

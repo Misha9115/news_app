@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -12,38 +11,6 @@ import 'package:news_paper/route_manager/models/about_us_page_data.dart';
 import 'package:news_paper/route_manager/routes.dart';
 import 'package:news_paper/store/application/app_state.dart';
 
-
- final List<DropdownMenuItem<String>> menuItems = [
-    DropdownMenuItem(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            english,
-          ),
-          SizedBox(
-            height: 30.0,
-            width: 30.0,
-            child: Image.asset(eng),
-          )
-        ],
-      ),
-      value: en,
-    ),
-    DropdownMenuItem(
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        const Text(germany),
-        SizedBox(
-          height: 30.0,
-          width: 30.0,
-          child: Image.asset(gr),
-        ),
-      ]),
-      value: de,
-    ),
-  ];
-
-
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
@@ -53,15 +20,8 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
 
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-
     return StoreConnector<AppState, SettingsPageVM>(
       converter: SettingsPageVM.init,
       distinct: true,
@@ -69,14 +29,15 @@ class _SettingsPageState extends State<SettingsPage> {
         return _Widget(
           vm: vm,
         );
-
       },
     );
   }
 }
+
 class _Widget extends StatefulWidget {
   final SettingsPageVM vm;
-  const _Widget({required this.vm,Key? key}) : super(key: key);
+
+  const _Widget({required this.vm, Key? key}) : super(key: key);
 
   @override
   _WidgetState createState() => _WidgetState();
@@ -85,13 +46,10 @@ class _Widget extends StatefulWidget {
 class _WidgetState extends State<_Widget> {
   bool isSwitched = false;
   String dropdownValue = en;
+
   @override
   Widget build(BuildContext context) {
-    return NotificationListener<ScrollUpdateNotification>(
-      onNotification: (scroll) {
-        return false;
-      },
-      child: SingleChildScrollView(
+    return  SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
@@ -141,25 +99,21 @@ class _WidgetState extends State<_Widget> {
                   ],
                 ),
               ),
-
               Align(
                 alignment: Alignment.center,
                 child: DropdownButton<String>(
                   key: const Key(keyDropdownButton),
                   menuMaxHeight: MediaQuery.of(context).size.height,
                   value: dropdownValue,
-
                   onChanged: (String? newValue) {
                     widget.vm.changeLanguage(newValue!);
                     setState(() {
                       dropdownValue = newValue;
                     });
-
                   },
                   items: menuItems,
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Text(
@@ -199,11 +153,57 @@ class _WidgetState extends State<_Widget> {
                     ),
                   );
                 },
-              )
+              ),
+              const SizedBox(height: 15.0,),
+              ButtonPage(
+                rowIcon: CupertinoIcons.forward,
+                rowText: 'Support',
+                fontSize: widget.vm.getFontSize,
+                light: widget.vm.isLight,
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    AppRoutes.supportPage,
+                    arguments: AboutUsPageData(
+                      fontSize: widget.vm.getFontSize,
+                      isLight: widget.vm.isLight,
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),
-      ),
+
     );
   }
 }
+
+final List<DropdownMenuItem<String>> menuItems = [
+  DropdownMenuItem(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Text(
+          english,
+        ),
+        SizedBox(
+          height: 30.0,
+          width: 30.0,
+          child: Image.asset(eng),
+        )
+      ],
+    ),
+    value: en,
+  ),
+  DropdownMenuItem(
+    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      const Text(germany),
+      SizedBox(
+        height: 30.0,
+        width: 30.0,
+        child: Image.asset(gr),
+      ),
+    ]),
+    value: de,
+  ),
+];

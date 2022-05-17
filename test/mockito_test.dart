@@ -3,7 +3,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:news_paper/domain/service/analitics_service.dart';
 import 'package:news_paper/domain/service/network_service/network_service.dart';
-import 'package:news_paper/domain/service/validator.dart';
 import 'package:news_paper/network/news_dao.dart';
 import 'package:news_paper/route_manager/routes.dart';
 import 'package:news_paper/shared/init.dart';

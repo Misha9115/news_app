@@ -32,7 +32,9 @@ class Application extends StatelessWidget {
                 ],
                 supportedLocales: L10n.all,
                 locale: store.state.languageState.language,
-                theme: ThemeData(),
+                theme: ThemeData(
+                  visualDensity: VisualDensity.adaptivePlatformDensity,
+                ),
                 debugShowCheckedModeBanner: false,
                 builder: (context, child) {
                   return MediaQuery(
