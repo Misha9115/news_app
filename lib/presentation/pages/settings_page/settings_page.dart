@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:news_paper/presentation/pages/settings_page/sttings_page_vm.dart';
+import 'package:news_paper/presentation/pages/settings_page/settings_page_vm.dart';
 import 'package:news_paper/presentation/widgets/page_button.dart';
 import 'package:news_paper/res/app_consts.dart';
 import 'package:news_paper/res/app_styles.dart';
@@ -46,7 +47,29 @@ class _Widget extends StatefulWidget {
 class _WidgetState extends State<_Widget> {
   bool isSwitched = false;
   String dropdownValue = en;
+  static const platform = MethodChannel('samples.flutter.dev/battery');
+  String _batteryLevel = 'Chek battery level.';
+  int level=0;
 
+
+  Future<void> _getBatteryLevel() async {
+    String batteryLevel;
+    try {
+      final int result = await platform.invokeMethod('getBatteryLevel');
+      batteryLevel = 'Battery level at $result % .';
+    } on PlatformException catch (e) {
+      batteryLevel = "Failed to get battery level: '${e.message}'.";
+      level =int.parse(e.message!);
+    }
+
+    setState(() {
+      if (level<90){
+        isSwitched =true;
+        widget.vm.changeTheme(true);
+      }
+      _batteryLevel = batteryLevel;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return  SingleChildScrollView(
@@ -170,6 +193,31 @@ class _WidgetState extends State<_Widget> {
                   );
                 },
               ),
+              const SizedBox(height: 15.0,),
+              // ButtonPage(
+              //   rowIcon: CupertinoIcons.forward,
+              //   rowText: 'Battery',
+              //   fontSize: widget.vm.getFontSize,
+              //   light: widget.vm.isLight,
+              //   onTap: () {
+              //     Navigator.of(context).pushNamed(
+              //       AppRoutes.platformChannel,
+              //
+              //     );
+              //   },
+              // ),
+              ButtonPage(
+                rowIcon: CupertinoIcons.forward,
+                rowText: _batteryLevel,
+                fontSize: widget.vm.getFontSize,
+                light: widget.vm.isLight,
+                onTap: _getBatteryLevel,
+              ),
+              // ElevatedButton(
+              //   child: const Text('Get Battery Level'),
+              //   onPressed: _getBatteryLevel,
+              // ),
+              // Text(_batteryLevel),
             ],
           ),
         ),

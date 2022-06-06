@@ -9,6 +9,7 @@ class AppRoutes {
   static const String aboutUs = '/aboutUs';
   static const String supportPage = '/supportPage';
   static const String homePageMassage = '/homePageMassage';
+  static const String platformChannel ='/platformChannel';
 
 //HomePage
 }

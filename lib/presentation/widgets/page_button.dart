@@ -7,13 +7,15 @@ class ButtonPage extends StatelessWidget {
   final String rowText;
   final bool light;
   final double fontSize;
+  String? buttonText;
 
-  const ButtonPage({
+   ButtonPage({
     required this.rowText,
     required this.rowIcon,
     required this.onTap,
     required this.light,
     required this.fontSize,
+    this.buttonText,
     Key? key,
   }) : super(key: key);
 
@@ -37,6 +39,8 @@ class ButtonPage extends StatelessWidget {
                   color: light ? AppColors.white.withOpacity(0.8) : AppColors.black.withOpacity(0.8),
                 ),
               ),
+              if(buttonText!=null)
+                Text(buttonText!),
               Icon(
                 rowIcon,
                 color: AppColors.marigold,

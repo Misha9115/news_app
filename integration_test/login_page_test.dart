@@ -107,9 +107,9 @@ void main() {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: L10n.all,
-        home: const AboutUs(
+        home:  const AboutUs(
           fontSize: 1,
-          isLight: true,
+         isLight: true,
         ),
       ));
     });

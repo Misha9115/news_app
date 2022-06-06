@@ -298,9 +298,9 @@ void main() {
       ],
       supportedLocales: L10n.all,
       locale: store.state.languageState.language,
-      home: const AboutUs(
-        fontSize: 1,
-        isLight: true,
+      home:  AboutUs(
+       fontSize: 1,
+       isLight: true,
       ),
     ));
   });

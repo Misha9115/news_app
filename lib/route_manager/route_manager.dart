@@ -63,8 +63,8 @@ class RouteManager {
         return _defaultRoute(
           settings: settings,
           page:  AboutUs(
-            fontSize: (settings.arguments as AboutUsPageData).fontSize,
-            isLight:  (settings.arguments as AboutUsPageData).isLight,
+           fontSize: (settings.arguments as AboutUsPageData).fontSize,
+           isLight:  (settings.arguments as AboutUsPageData).isLight,
           ),
         );
       default:

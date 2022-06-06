@@ -1,27 +1,77 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:location/location.dart';
 import 'package:news_paper/res/app_consts.dart';
 import 'package:news_paper/res/app_styles.dart';
+import 'dart:async';
+
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AboutUs extends StatefulWidget {
-  final bool isLight;
+    final bool isLight;
   final double fontSize;
 
-  const AboutUs({
+    const AboutUs({
     required this.isLight,
     required this.fontSize,
     Key? key,
   }) : super(key: key);
-
   @override
   _AboutUsState createState() => _AboutUsState();
 }
 
-class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
+class _AboutUsState extends State<AboutUs> {
+  final Completer<GoogleMapController> _controller = Completer();
+   double _lat = 46.48253;
+   double _lng = 30.72331;
+  Location location =  Location();
+  late bool _serviceEnabled;
+  late PermissionStatus _permissionGranted;
+  late CameraPosition _currentPosition;
+
+  @override
+  initState() {
+    super.initState();
+    _currentPosition = CameraPosition(
+      target: LatLng(_lat, _lng),
+      zoom: 12,
+    );
+  }
+  _locateMe() async {
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+    await location.getLocation().then((res) async {
+      final GoogleMapController controller = await _controller.future;
+      final _position = CameraPosition(
+        target: LatLng(res.latitude!, res.longitude!),
+        zoom: 12,
+      );
+      controller.animateCamera(CameraUpdate.newCameraPosition(_position));
+      setState(() {
+        _lat = res.latitude!;
+        _lng = res.longitude!;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return
+      Scaffold(
       backgroundColor: widget.isLight ? AppColors.grey : AppColors.white,
       appBar: AppBar(
         title: Text(
@@ -148,9 +198,54 @@ class _AboutUsState extends State<AboutUs> with SingleTickerProviderStateMixin {
                   overflow: TextOverflow.clip,
                   color: widget.isLight ? AppColors.white.withOpacity(0.8) : AppColors.black),
             ),
+
+            SizedBox(
+                height: 500,
+                width: 500,
+                child: Stack(
+                  children: [
+                    GoogleMap(
+                      initialCameraPosition: _currentPosition,
+                      markers: {
+                        Marker(
+                          markerId: const MarkerId('current'),
+                          position: LatLng(_lat, _lng),
+                        )
+                      },
+                      onMapCreated: (GoogleMapController controller) {
+                        _controller.complete(controller);
+                      },
+                    ),
+                    Align(
+                      alignment: const Alignment(0.92,-0.9),
+                      child:  InkWell(
+                        onTap:() => _locateMe(),
+                        child: const Icon(Icons.location_searching),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // floatingActionButton: FloatingActionButton(
+              //   child: Icon(Icons.location_searching),
+              //   onPressed: () => _locateMe(),
+              // ),
           ],
         ),
       ),
     );
+
+
+    //   Scaffold(
+    //   appBar: AppBar(
+    //     title: Text("Google Maps"),
+    //   ),
+    //   body:
+    //
+    //
+    //
+    //
+    // );
   }
 }
